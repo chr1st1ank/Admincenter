@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<AdminkonsoleSettings>
+    <Untermenue titel="Hauptmenue">
+        <Programm titel="Konsole" programmname="cmd.exe" parameter="" pfad="" unsichtbar="false" />
+    </Untermenue>
+</AdminkonsoleSettings>

@@ -1,0 +1,13 @@
+INPUT(
+./tmp\release\AnmeldeDialog.o
+./tmp\release\main.o
+./tmp\release\MenuDialog.o
+./tmp\release\UntermenueEintrag.o
+./tmp\release\MenuPresenter.o
+./tmp\release\MenuButton.o
+./tmp\release\BackButton.o
+./tmp\release\EmptyButton.o
+./tmp\release\moc_AnmeldeDialog.o
+./tmp\release\moc_MenuButton.o
+./tmp\release\moc_BackButton.o
+);

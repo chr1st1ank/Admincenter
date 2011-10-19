@@ -1,0 +1,29 @@
+<!DOCTYPE whatever PUBLIC "-//blah//EN"
+        "http://somedomain/somexml.dtd">
+<?xml version="1.0"?>
+<document>
+ <info>
+  <description>This XML file is here to test &quot;XMLSP&quot; parser</description>
+  <long><![CDATA[This long text
+	checks if CDATA blocks
+	are parsed correctly]]>
+   <!-- white spaces -->
+  </long>
+  <date>
+   <!-- sorry, no date info -->
+  </date>
+  <version></version>
+ </info>
+ <attributes>
+  <attr name="style" value="custom" />
+  <attr name="class" value="abc"></attr>
+  <attr name="text">
+	This text is a multiline test
+	to check if the parser can
+	handle it without any problems
+	<!-- and some comment -->
+  </attr>
+ </attributes>
+ <!-- That is all for now -->
+</document>
+<!-- EOF -->

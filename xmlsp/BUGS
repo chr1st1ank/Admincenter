@@ -1,0 +1,3 @@
+Known bugs:
+- XMLSP event functions pass data by reference so they may be altered by user.
+- <![CDATA[ uses parts of <!DOCTYPE detection, this should be fixed.

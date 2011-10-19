@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="AdminCenter" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<MakeCommands>
+			<Build command="$make -f $makefile $target" />
+			<CompileFile command="$make -f $makefile $file" />
+			<Clean command="$make -f $makefile.$target clean" />
+			<DistClean command="$make -f $makefile distclean$target" />
+		</MakeCommands>
+		<Build>
+			<Target title="Debug">
+				<Option output="..\debug\Admincenter" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\debug" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="--nologin" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="..\sharedLib\debug\libsharedLib.a" />
+				</Linker>
+				<MakeCommands>
+					<Build command="$make -f $makefile" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile.$target clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+				</MakeCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="..\release\AdminCenter" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\release" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option parameters="--nologina" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="..\sharedLib\release\libsharedLib.a" />
+				</Linker>
+				<MakeCommands>
+					<Build command="$make -f $makefile.$target" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile.$target clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="$(#qt4.include)" />
+			<Add directory="$(#qt4.include)\QtGui" />
+			<Add directory="$(#qt4.include)\QtCore" />
+		</Compiler>
+		<Linker>
+			<Add library="QtCore4" />
+			<Add library="QtGui4" />
+			<Add directory="$(#qt4.lib)" />
+		</Linker>
+		<Unit filename="AdminCenter.pro" />
+		<Unit filename="BackButton.cpp" />
+		<Unit filename="BackButton.hpp" />
+		<Unit filename="BaseException.hpp" />
+		<Unit filename="EmptyButton.cpp" />
+		<Unit filename="EmptyButton.hpp" />
+		<Unit filename="Entry.hpp" />
+		<Unit filename="EntryApplication.cpp" />
+		<Unit filename="EntryApplication.hpp" />
+		<Unit filename="EntrySubmenu.cpp" />
+		<Unit filename="EntrySubmenu.hpp" />
+		<Unit filename="LoginDialog.cpp" />
+		<Unit filename="LoginDialog.hpp" />
+		<Unit filename="MenuButton.cpp" />
+		<Unit filename="MenuButton.hpp" />
+		<Unit filename="MenuDialog.cpp" />
+		<Unit filename="MenuDialog.hpp" />
+		<Unit filename="MenuPresenter.cpp" />
+		<Unit filename="MenuPresenter.hpp" />
+		<Unit filename="Menulist.cpp" />
+		<Unit filename="Menulist.hpp" />
+		<Unit filename="OperatingSystem.cpp" />
+		<Unit filename="OperatingSystem.hpp" />
+		<Unit filename="Settings.cpp" />
+		<Unit filename="Settings.hpp" />
+		<Unit filename="SettingsParser.cpp" />
+		<Unit filename="SettingsParser.hpp" />
+		<Unit filename="auxiliaries.cpp" />
+		<Unit filename="auxiliaries.hpp" />
+		<Unit filename="debug.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="xmlsp\xmlsp.cpp" />
+		<Unit filename="xmlsp\xmlsp.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

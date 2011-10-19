@@ -1,0 +1,39 @@
+version 0.5.1
+2007-12-05: Przemyslaw Grzywacz
+  - Fixed warings about char* to std::string conversion in report().
+  Bugs reported by Mariano Simone:
+  - Fixed bug when tags like "<abc/>" were reported with it's parent name.
+  - Added new sample XML (test2.xml) to test bug fix.
+
+
+version 0.5
+2007-06-29: Przemyslaw Grzywacz
+  - Added simple DOM parser
+  - Added xmlsp_test3 DOM test
+  - Fixed std::* types to DOM types (except strings)
+
+2007-06-28: Przemyslaw Grzywacz
+  - Added basic DOM interface (xmlsp_dom)
+
+
+version 0.4
+2007-05-31: Przemyslaw Grzywacz
+  - Added option to skip reporting CDATA composed only of ' ', \t, \n and \r
+  - Added a sample XML file to test with xmlsp_test2 program
+  - Change in xmlsp_test2, now it use set_skip_whitespaces(true)
+  - Fixed bug in <![CDATA[]]> handling
+
+
+version 0.3
+2007-05-24: Przemyslaw Grzywacz
+  - Added xmlsp_test2.cpp to help test XML files
+  Bugs reported by Lew Raymond:
+  - Fixed passing attributes of previouse tags
+  - Fixed parsing tags without attributes
+  - Fixed false errors on closing tags
+
+
+version 0.2
+2007-04-30: Przemyslaw Grzywacz
+  - Fixed some compile time warning (when compiling with g++ -Wall)
+

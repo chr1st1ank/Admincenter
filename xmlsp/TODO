@@ -1,0 +1,4 @@
+- Change detection of CDATA block so it doesn't use M_DOCTYPE status.
+- Implement DOMElement::getXML() to produce XML string from DOM tree.
+- Implement some basic xpath for DOM.
+- Write documentation.

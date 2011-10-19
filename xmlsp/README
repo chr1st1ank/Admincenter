@@ -1,0 +1,113 @@
+1. About
+
+XMLSP is a non-validating XML parser design to be VERY small and to contain
+only a minimum set of features (what is realy needed to parse a simple XML
+file).
+
+XMLSP can parse tags, attributes, cdata, comments, processing instructions,
+doctypes (partialy).
+
+XMLSP won't even try to understand anything other than tags and attributes
+or namespaces. So if you need more advanced XML features, try something else.
+
+
+
+2. Usage
+
+To use it, you must derive from XMLSP::Parser and implement on_* functions which
+you are interested in.
+
+A simple example is given in xmlsp_test1.cpp how to use this parser.
+
+If you want to use stream parsing (unlike in the example, where the entire
+document is parsed at once), you may do it like this:
+
+	// initialize parsing
+	parser.begin();
+	while(!s.eof()) {
+		s.read(buffer);
+		if (parser.parse_chunk(string(buffer)) == false) {
+			// error
+		}
+	}
+	if (parser.end()) {
+		// ok
+	} else {
+		// error
+	}
+	
+
+
+3. Entities
+
+XMLSP supports 1 byte entities in decimal and hex forms:
+
+	&#145;
+	&xb0;
+
+By default, the parser supports the following entities: &lt; &gt; &amp; &apos;
+&quot;. You may add more entites using Parser::add_entity(name, value):
+
+	parser.add_entity("nbsp", 160);
+
+	
+
+4. Character set support
+
+XMLSP, due to it's size, is not aware of things like character sets. It should
+work however with all 8bit character sets (ISO-8859-1, ISO-8859-2, CP1250, ...)
+and will always understand ASCII tag and attribute names.
+
+Using locales, you may allow the parser to understand international characters
+in tag and attribute names.
+
+
+
+5. UTF-8
+
+If my understanding of UTF-8 is correct, it was design in such way, to be
+compatible with ASCII, so there shouldn't be any problem if UTF-8 multibyte
+characters are used only in attribute values and CDATA.
+
+
+
+6. XMLSP DOM interface
+
+DOM interface (xmlsp_dom) is an optional addon to XMLSP which provide a simple
+DOM tree classes. XMLSP::DOMElement::loadXML() uses XMLSP::Parser to parse
+source XML files.
+
+Since this DOM implementation must be small and simple, there is no document
+root class, nor any comments and processing instruction support. If I hear
+request for a more complete DOM, I will write xmlsp_dom2 with more features.
+
+Please note that the DOM interface is very young and untested, so is may
+contain many bugs (or even don't work at all). If you find any bug, please
+report them to me.
+
+
+
+7. License
+
+Since I created this library because I couldn't find something like that
+with a non-restrictive license, I distribute this library under BSD license.
+
+See source/header files for more details.
+
+
+
+8. Author
+
+It's me, Przemyslaw Grzywacz. If you have any questions, suggestions or
+you found a bug, you may contact me throught SourceForge project page:
+
+	http://sourceforge.net/projects/xmlsp
+
+
+
+9. Final notes
+
+That's all, enjoy this XML parser, which is 20 times smaller than libxml2
+header files :)
+
+
