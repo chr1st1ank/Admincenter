@@ -4,15 +4,12 @@
 #include "Menulist.hpp"
 #include "BaseException.hpp"
 
-#include <string>
+//#include <string>
 
 class Settings
 {
 public:
-    /// Constructor which automatically loads settings from the standard location
-    Settings();
-
-    /// Constructor which takes a filename
+    /// Constructor which takes a filename to load the settings from
     ///
     /// \param filename the file to load the settings from
     Settings(std::string filename);
@@ -32,10 +29,11 @@ public:
     DECLARE_EXCEPTION(FileIOError);
 
 private:
+    /// Load settings from a string containing correct XML
+    ///
+    /// \param A std::string containing the settings as xml
     void parseSettings(const std::string& xml);
 
-//    const static std::string dateiname;
-    const std::string dateiname;
     Menulist* _hauptmenue;
     std::string _user;
 };

@@ -11,7 +11,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QString>
-#include <string>
+//#include <string>
 #include <vector>
 #include <iostream>
 
@@ -22,9 +22,10 @@ int main(int argc, char* argv[])
     // Instantiate the QApplication instance to prepare some basic configurations
     QApplication app(argc, argv);
 
-//    try{
+    try{
         // Loging in or starting main program?
         bool login = true;
+        std::string configFilename = OperatingSystem::get_appdir() + "/settings.xml";
 
         // Scan application arguments
         for(int i=1; i<argc; ++i)
@@ -32,15 +33,18 @@ int main(int argc, char* argv[])
             if(std::string(argv[i]) == std::string("--nologin"))
             {
                 login = false;
-                break;
+            }
+            if(std::string(argv[i]) == std::string("--config"))
+            {
+                if(++i<argc)
+                    configFilename = std::string(argv[i]);
             }
         }
 
         if(login) // Start in login mode
         {
-            // Read settings from the standard settings file
-//            Settings s(Settings::dateiname);
-            Settings s;
+            // Read settings
+            Settings s(configFilename);
 
 
             // Informations for application restart as different user
@@ -71,10 +75,9 @@ int main(int argc, char* argv[])
         }
         else //if(login) -> Start as main program
         {
-            // Read settings from the standard settings file
-            cDEBUG("Read settings from " << Settings::dateiname);
-//            Settings s(Settings::dateiname);
-            Settings s;
+            // Read settings
+            cDEBUG("Read settings from " << configFilename);
+            Settings s(configFilename);
 
             // Create and show the top-level menu
             cDEBUG("Create menu");
@@ -89,6 +92,9 @@ int main(int argc, char* argv[])
             cDEBUG("finished with retcode " << returnCode);
             return returnCode;
         }
+    }catch(const Settings::FileIOError& ex){
+        cDEBUG(ex.what());
+        return -97;
 //    }catch(const BaseException& ex){
 //        cDEBUG(ex.name());
 //        cDEBUG(ex.what());
@@ -99,6 +105,6 @@ int main(int argc, char* argv[])
 //    }catch(const std::string& s){
 //        cDEBUG(s);
 //        return -98;
-//    }
+    }
     return -99;
 }

@@ -2,7 +2,8 @@
 #include "Menulist.hpp"
 #include "Entry.hpp"
 #include "auxiliaries.hpp"
-#include <string>
+#include "debug.h"
+//#include <string>
 #include <vector>
 #include <stack>
 #include <stdexcept>
@@ -33,8 +34,9 @@ unsigned int Menulist::get_menuelaenge() const
 {
     return _eintragliste.size();
 }
-Entry* Menulist::get_menueeintrag(int i) const
+Entry* Menulist::get_menueeintrag(unsigned int i) const
 {
+    cASSERTX(i<=_eintragliste.size(), "Wrong index in Menulist::get_menueeintrag(i)");
     return _eintragliste.at(i);
 }
 void Menulist::add_menueeintrag(Entry* eintrag)
@@ -45,7 +47,7 @@ void Menulist::add_menueeintrag(unsigned int position, Entry* eintrag)
 {
     _eintragliste.insert(_eintragliste.begin()+position, eintrag);
 }
-void Menulist::del_menueeintrag(int position)
+void Menulist::del_menueeintrag(unsigned int position)
 {
     _eintragliste.erase(_eintragliste.begin()+position);
 }

@@ -3,7 +3,7 @@
 
 #include "Entry.hpp"
 
-#include <string>
+//#include <string>
 #include <vector>
 
 //typedef Entry::Entry me;
@@ -18,15 +18,15 @@ class Menulist
         std::vector<std::string> titelliste();
 
         unsigned int get_menuelaenge() const;
-        me* get_menueeintrag(int i) const;
+        me* get_menueeintrag(unsigned int i) const;
         void add_menueeintrag(me* eintrag);
         void add_menueeintrag(unsigned int position, me* eintrag);
-        void del_menueeintrag(int position);
+        void del_menueeintrag(unsigned int position);
 
         std::string toXML();
         std::string string();
 
-        static Menulist* fromXML(const std::string& xml);
+//        static Menulist* fromXML(const std::string& xml);
 
 //        ///Menue laden und speichern
 //        bool laden();

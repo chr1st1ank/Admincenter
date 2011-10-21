@@ -4,7 +4,7 @@
 #include "Entry.hpp"
 #include "Menulist.hpp"
 
-#include <string>
+//#include <string>
 
 
 class EntryApplication : public Entry

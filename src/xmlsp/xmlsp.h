@@ -28,7 +28,7 @@
 
 
 #include <map>
-#include <string>
+//#include <string>
 #include <stack>
 
 namespace XMLSP {

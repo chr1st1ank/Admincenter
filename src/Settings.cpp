@@ -2,15 +2,14 @@
 #include "Settings.hpp"
 #include "SettingsParser.hpp"
 #include "OperatingSystem.hpp"
+#include "debug.h"
 
 #include <fstream>
-
-//const std::string Settings::dateiname = OperatingSystem::get_appdir() + "/settings.xml";
-const std::string Settings::dateiname = "settings.xml";//Problematisch?
-
+#include <QDir>
 
 Settings::Settings(std::string filename)
 {
+    cDEBUG("reading settings");
     // Datei einlesen
     std::ifstream inFile(filename.c_str(), std::ios::in);
     if (!inFile)
@@ -26,7 +25,11 @@ Settings::Settings(std::string filename)
     }
     while (inFile);
     inFile.close();
-    parseSettings(xml);
+    try{
+        parseSettings(xml);
+    }catch(const std::exception& ex){
+        throw(FileIOError(std::string("Failed to parse settings file")+filename));
+    }
 }
 
 void Settings::save(const std::string& filename)

@@ -1,7 +1,7 @@
 #ifndef BASEEXCEPTION_HPP
 #define BASEEXCEPTION_HPP
 
-#include <string>
+//#include <string>
 
 class BaseException : public std::exception
 {

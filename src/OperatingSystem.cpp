@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+//#include <string>
 #include <sstream>
 #include <vector>
 #include <fstream>
@@ -125,10 +125,14 @@ std::string OperatingSystem::privat::WCHARToString(WCHAR* ws)
 /***************************************************************/
 std::string OperatingSystem::privat::TCHARToString(TCHAR* tc)
 {
+#ifdef _WIN32
 #ifdef UNICODE
     return WCHARToString(tc);
 #else
     return std::string(tc);
+#endif
+#else
+    return std::string(*tc);
 #endif
 }
 

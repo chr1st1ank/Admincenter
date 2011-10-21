@@ -4,7 +4,7 @@
 #include "Menulist.hpp"
 
 #include "xmlsp/xmlsp.h"
-#include <string>
+#include <QString>
 #include <stack>
 
 class SettingsParser: public XMLSP::Parser

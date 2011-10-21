@@ -1,18 +1,14 @@
-#ifndef WCHAR_H
-#define WCHAR_H
+#ifndef AUXILIARIES_HPP
+#define AUXILIARIES_HPP
 
-//#include <windows.h>
-#include <string>
-
-// Aus einem String einen integer machen
-    std::string IntToString(const int& d);
+#include <QString>
 
 // Aus einer Zahl als unsigned int einen char machen
 char digitToChar(unsigned d);
 
-// Eine Ziffer als Char in einen unsigned int verwandeln
-    unsigned int CharToInt(const char& c);
+//// Eine Ziffer als Char in einen unsigned int verwandeln
+//    unsigned int CharToInt(const char& c);
 
-std::string xmlescape(std::string s);
+QString xmlescape(QString s);
 
-#endif
+#endif //AUXILIARIES_HPP

@@ -1,7 +1,7 @@
 #ifndef OPERATINGSYSTEM_HPP
 #define OPERATINGSYSTEM_HPP
 
-#include <string>
+//#include <string>
 #include <vector>
 
 #ifdef _WIN32
@@ -10,6 +10,7 @@
 #else
 #define DWORD int
 #define WCHAR std::string
+#define TCHAR std::string
 #endif
 
 namespace OperatingSystem{
