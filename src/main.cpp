@@ -25,19 +25,20 @@ int main(int argc, char* argv[])
     try{
         // Loging in or starting main program?
         bool login = true;
-        std::string configFilename = OperatingSystem::get_appdir() + "/settings.xml";
+        QString configFilename = OperatingSystem::Path::join(
+            OperatingSystem::get_appdir(), "settings.xml");
 
         // Scan application arguments
         for(int i=1; i<argc; ++i)
         {
-            if(std::string(argv[i]) == std::string("--nologin"))
+            if(QString(argv[i]) == QString("--nologin"))
             {
                 login = false;
             }
-            if(std::string(argv[i]) == std::string("--config"))
+            if(QString(argv[i]) == QString("--config"))
             {
                 if(++i<argc)
-                    configFilename = std::string(argv[i]);
+                    configFilename = QString(argv[i]);
             }
         }
 
@@ -48,9 +49,9 @@ int main(int argc, char* argv[])
 
 
             // Informations for application restart as different user
-            std::string Verz = OperatingSystem::get_appdir();
-            std::string Prog = OperatingSystem::get_appname();
-            std::string Param = "--nologin";
+            QString Verz = OperatingSystem::get_appdir();
+            QString Prog = OperatingSystem::get_appname();
+            QString Param = "--nologin";
 
             // Show the dialog
             LoginDialog ad(s.user());
@@ -76,7 +77,7 @@ int main(int argc, char* argv[])
         else //if(login) -> Start as main program
         {
             // Read settings
-            cDEBUG("Read settings from " << configFilename);
+            cDEBUG(("Read settings from " + configFilename).toLocal8Bit().constData());
             Settings s(configFilename);
 
             // Create and show the top-level menu

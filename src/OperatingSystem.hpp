@@ -1,23 +1,40 @@
 #ifndef OPERATINGSYSTEM_HPP
 #define OPERATINGSYSTEM_HPP
 
+#include "BaseException.hpp"
 //#include <string>
 #include <vector>
+#include <QString>
 
 #ifdef _WIN32
 #define WINVER 0x0500
 #include <windows.h>
 #else
 #define DWORD int
-#define WCHAR std::string
-#define TCHAR std::string
+#define WCHAR wchar_t
+#define TCHAR char
 #endif
 
 namespace OperatingSystem{
+    namespace Path{
+        /// The character used by the operating system to separate pathname
+        /// components. This is '/' for POSIX and '\\' for Windows.
+        QString sep();
 
-    void fehlermeldung(std::string Text, std::string Titel);
-    void fehlermeldung(DWORD fehlernummer);
-    std::string fehlertext(DWORD fehlernummer);
+        /// Join two path components intelligently. The return value is the
+        /// concatenation of path1, and path2, with exactly one directory separator.
+        QString join(const QString& path1, const QString& path2);
+    }
+
+//    /// Show an error message to the user
+//    void fehlermeldung(std::string Text, std::string Titel);
+//    /// Show an error message to the user
+//    void fehlermeldung(DWORD fehlernummer);
+
+    /// Get the error message for a specified error
+    ///
+    /// \param fehlernummer The error ID
+    QString errorMessage(DWORD errorid);
 
     namespace privat{
         // Max. Laenge der verwendeten C-Strings
@@ -26,41 +43,51 @@ namespace OperatingSystem{
         // Aus einem String einen WCHAR-String machen
         void StringToWCHAR(const std::string& s, WCHAR ws[max_stringlaenge]);
 
+        // Make a WCHAR-String out of a QString
+        void QStringToWCHAR(const QString& s, WCHAR ws[max_stringlaenge]);
+
         std::string WCHARToString(WCHAR* ws);
 
         std::string TCHARToString(TCHAR* tc);
+
+        void throwError(DWORD errorid);
     }
 
-    // Aktuelles Arbeitsverzeichnis angeben
-    std::string get_cd();
+    // Returns the current working directory
+    QString get_cd();
 
-    // Name der laufenden Anwendung
-    std::string get_appname();
+    // Returns the name of the running application.
+    QString get_appname();
 
-    // Verzeichnis in welchem sich die laufende Anwendung befindet
-    std::string get_appdir();
+    // Returns the directory the running application is in.
+    QString get_appdir();
 
-    //Anzeigen von Nutzer und Domain
-    bool get_user(std::string& Name, std::string& Domain);
+    /// Get the current user's name and domain name (passed by reference!).
+    /// Returns true on success.
+    ///
+    /// \param name The string to store the user name in
+    /// \param domain The string to store the domain name in
+    bool get_user(QString& name, QString& domain);
 
-    // Rückgabe der lokalen Benutzerkonten
-    std::vector<std::string> lokale_benutzer();
+    // Returns the local user accounts.
+    std::vector<QString> local_users();
 
     //Zwei Möglichkeiten ein Programm via Shellaufruf zu starten
-    void programm_starten(const std::string& sdateiname
-                        , const std::string& sparameter = ""
-                        , const std::string& spfad = ""
+    void programm_starten(const QString& sdateiname
+                        , const QString& sparameter = ""
+                        , const QString& spfad = ""
                         , bool unsichtbar = false);
 
     // Einen Prozess starten
-    void prozess_starten( const std::string& sdateiname
-                        , const std::string& sparameter = ""
-                        , const std::string& spfad = ""
+    void prozess_starten( const QString& sdateiname
+                        , const QString& sparameter = ""
+                        , const QString& spfad = ""
                         , bool unsichtbar = "");
 
     // Einen Prozess unter anderem Benutzernamen starten
-    bool prozess_starten_als(const std::string& Benutzername, const std::string& Domain, const std::string& Passwort
-                             ,const std::string& dateiname, const std::string& parameter, const std::string& pfad);
+    bool prozess_starten_als(const QString& Benutzername, const QString& Domain, const QString& Passwort
+                             ,const QString& dateiname, const QString& parameter, const QString& pfad);
 
+    DECLARE_EXCEPTION(OSError);
 }
 #endif

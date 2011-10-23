@@ -6,7 +6,6 @@
 #include "Menulist.hpp"
 
 #include <stack>
-#include <QString>
 
 class MenuPresenter
 {

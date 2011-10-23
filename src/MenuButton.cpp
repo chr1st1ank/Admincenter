@@ -9,8 +9,8 @@ MenuButton::MenuButton(Entry* menueeintrag, int number, QWidget* parent)
     :   EmptyButton(parent),
         _menueeintrag(menueeintrag)
 {
-    setText(prepareButtonText(number, QString::fromLocal8Bit(menueeintrag->titel().c_str())));
-    QString icon = QString::fromLocal8Bit(menueeintrag->icon().c_str());
+    setText(prepareButtonText(number, menueeintrag->titel()));
+    QString icon = menueeintrag->icon();
     if(icon == "")
     {
         if(menueeintrag->type() == "EntrySubmenu")

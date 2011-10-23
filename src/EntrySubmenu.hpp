@@ -4,18 +4,18 @@
 #include "Entry.hpp"
 #include "Menulist.hpp"
 
-//#include <string>
+#include <QString>
 
 class EntrySubmenu : public Entry
 {
     public:
         EntrySubmenu(
-            const std::string& titel,
+            const QString& titel,
             Menulist* liste
         );
         virtual void execute();
-        virtual std::string type() const {return "EntrySubmenu";};
-        virtual std::string string();
+        virtual QString type() const {return "EntrySubmenu";};
+//        virtual QString string();
     private:
         Menulist* _menueliste;
 };

@@ -1,15 +1,16 @@
 #ifndef BASEEXCEPTION_HPP
 #define BASEEXCEPTION_HPP
 
+#include <QString>
 //#include <string>
 
 class BaseException : public std::exception
 {
     private:
-        std::string _what;
+        QString _what;
 
     public:
-        BaseException(const std::string& what)
+        BaseException(const QString& what)
             : _what(what)
         {}
 
@@ -18,28 +19,28 @@ class BaseException : public std::exception
 
         const char* what() const throw()
         {
-            return _what.c_str();
+            return _what.toLocal8Bit().constData();
         }
 
-        const std::string& what_string() const throw()
+        const QString& what_string() const throw()
         {
             return _what;
         }
 
-        virtual std::string name() const throw() = 0;
+        virtual QString name() const throw() = 0;
 };
 
 #define DECLARE_EXCEPTION(N)                            \
 class N : public BaseException                          \
 {                                                       \
     public:                                             \
-        N(const std::string& what) : BaseException(what)\
+        N(const QString& what) : BaseException(what)\
         {}                                              \
         ~N() throw()                                    \
         {}                                              \
-        std::string name() const throw()                \
+        QString name() const throw()                \
         {                                               \
-            return std::string(#N);                     \
+            return QString(#N);                     \
         }                                               \
 }
 

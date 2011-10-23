@@ -4,27 +4,27 @@
 #include "Entry.hpp"
 #include "Menulist.hpp"
 
-//#include <string>
+#include <QString>
 
 
 class EntryApplication : public Entry
 {
     public:
         EntryApplication(
-            const std::string& titel,
-            const std::string& icon,
-            const std::string& programmname,
-            const std::string& parameter,
-            const std::string& pfad,
+            const QString& titel,
+            const QString& icon,
+            const QString& programmname,
+            const QString& parameter,
+            const QString& pfad,
             bool unsichtbar = false
         );
         virtual void execute();
-        virtual std::string type() const {return "EntryApplication";};
-        virtual std::string string();
+        virtual QString type() const {return "EntryApplication";};
+//        virtual QString string();
     private:
-        std::string _programmname;
-        std::string _parameter;
-        std::string _pfad;
+        QString _programmname;
+        QString _parameter;
+        QString _pfad;
         bool _unsichtbar;
 };
 

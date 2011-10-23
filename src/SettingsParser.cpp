@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <iostream>
 #include <sstream>
+#include <string>
+#include <QString>
 
 #include "debug.h"
 
@@ -20,7 +22,7 @@ bool SettingsParser::on_tag_open(std::string tag_name, XMLSP::StringMap& attribu
         for (XMLSP::StringMap::const_iterator i = attributes.begin();
                 i != attributes.end(); i++)
         {
-            if (i->first == "name") _user = i->second;
+            if (i->first == "name") _user = QString::fromLocal8Bit(i->second.c_str(),i->second.size());
             break;
         }
     }
@@ -32,12 +34,12 @@ bool SettingsParser::on_tag_open(std::string tag_name, XMLSP::StringMap& attribu
     }
     else if (tag_name == "Untermenue")
     {
-        std::string titel = "";
+        QString titel = "";
         for (XMLSP::StringMap::const_iterator i = attributes.begin();
                 i != attributes.end(); i++)
         {
             if (i->first == "titel")
-                titel = i->second;
+                titel = QString::fromLocal8Bit(i->second.c_str());
         }
         listenstack.push(new Menulist(titel));
     }
@@ -47,25 +49,25 @@ bool SettingsParser::on_tag_open(std::string tag_name, XMLSP::StringMap& attribu
 //    }
     else if (tag_name == "Programm")
     {
-        std::string titel = "";
-        std::string programmname = "";
-        std::string parameter = "";
-        std::string pfad = "";
+        QString titel = "";
+        QString programmname = "";
+        QString parameter = "";
+        QString pfad = "";
         bool unsichtbar = false;
-        std::string icon = "";
+        QString icon = "";
         for (XMLSP::StringMap::const_iterator i = attributes.begin();
                 i != attributes.end(); i++)
         {
             if (i->first == "titel"){
-                titel = i->second;
+                titel = QString::fromLocal8Bit(i->second.c_str());
             }else if (i->first == "icon"){
-                icon = i->second;
+                icon = QString::fromLocal8Bit(i->second.c_str());
             }else if (i->first == "programmname"){
-                programmname = i->second;
+                programmname = QString::fromLocal8Bit(i->second.c_str());
             }else if (i->first == "parameter"){
-                parameter = i->second;
+                parameter = QString::fromLocal8Bit(i->second.c_str());
             }else if (i->first == "pfad"){
-                pfad = i->second;
+                pfad = QString::fromLocal8Bit(i->second.c_str());
             }else if (i->first == "unsichtbar" && (i->second=="true"||i->second=="1")){
                 unsichtbar = true;
             }
@@ -179,7 +181,7 @@ Menulist* SettingsParser::get_liste()
     return listenstack.top();
 }
 
-std::string SettingsParser::get_user()
+QString SettingsParser::get_user()
 {
     return _user;
 }

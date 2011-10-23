@@ -11,11 +11,11 @@ typedef Entry me;
 class Menulist
 {
     public:
-        Menulist(const std::string& _titel);
+        Menulist(const QString& _titel);
 //        Menulist(const std::string& _titel, std::vector<Entry> liste);
 
-        std::string titel();
-        std::vector<std::string> titelliste();
+        QString titel();
+        std::vector<QString> titelliste();
 
         unsigned int get_menuelaenge() const;
         me* get_menueeintrag(unsigned int i) const;
@@ -23,8 +23,8 @@ class Menulist
         void add_menueeintrag(unsigned int position, me* eintrag);
         void del_menueeintrag(unsigned int position);
 
-        std::string toXML();
-        std::string string();
+//        QString toXML();
+//        QString string();
 
 //        static Menulist* fromXML(const std::string& xml);
 
@@ -52,7 +52,7 @@ class Menulist
 //        //Funktion, um einen Eintrag zu modifizieren
 
     private:
-        std::string _titel;
+        QString _titel;
         std::vector<me*> _eintragliste;
 };
 

@@ -5,6 +5,7 @@
 
 #include "xmlsp/xmlsp.h"
 #include <QString>
+#include <string>
 #include <stack>
 
 class SettingsParser: public XMLSP::Parser
@@ -23,11 +24,11 @@ public:
     virtual void on_error(int errno, int line, int col, std::string message);
 
     Menulist* get_liste();
-    std::string get_user();
+    QString get_user();
 
 private:
     std::stack<Menulist*> listenstack;
-    std::string _user;
+    QString _user;
 };
 
 #endif // SETTINGSPARSER_HPP_INCLUDED

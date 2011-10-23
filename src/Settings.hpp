@@ -4,7 +4,8 @@
 #include "Menulist.hpp"
 #include "BaseException.hpp"
 
-//#include <string>
+#include <string>
+#include <QString>
 
 class Settings
 {
@@ -12,18 +13,18 @@ public:
     /// Constructor which takes a filename to load the settings from
     ///
     /// \param filename the file to load the settings from
-    Settings(std::string filename);
+    Settings(QString filename);
 
     /// Save the settings to a given file
     ///
     /// \param filename the file to save the settings to
-    void save(const std::string& filename);
+//    void save(const QString& filename);
 
     /// Get the main menu as it is saved in the settings
     Menulist* hauptmenue();
 
     /// Get the username saved in the settings
-    const std::string& user();
+    const QString& user();
 
     /// Exception used on problems opening or writing files
     DECLARE_EXCEPTION(FileIOError);
@@ -35,7 +36,7 @@ private:
     void parseSettings(const std::string& xml);
 
     Menulist* _hauptmenue;
-    std::string _user;
+    QString _user;
 };
 
 #endif

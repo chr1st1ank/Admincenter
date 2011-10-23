@@ -7,9 +7,8 @@
 //#include <string>
 #include <sstream>
 #include <vector>
-//#include <string>
+#include <QString>
 
-using std::string;
 using std::vector;
 using namespace std;
 
@@ -17,11 +16,11 @@ using namespace std;
 * EntryApplication
 ************************************************/
 EntryApplication::EntryApplication(
-    const std::string& titel,
-    const std::string& icon,
-    const std::string& programmname,
-    const std::string& parameter,
-    const std::string& pfad,
+    const QString& titel,
+    const QString& icon,
+    const QString& programmname,
+    const QString& parameter,
+    const QString& pfad,
     bool unsichtbar
 ) : _programmname(programmname),
     _parameter(parameter),
@@ -35,17 +34,17 @@ void EntryApplication::execute()
 {
     OperatingSystem::programm_starten(_programmname,_parameter,_pfad,_unsichtbar);
 }
-std::string EntryApplication::string()
-{
-    ostringstream ss;
-    ss << "<Programm ";
-    ss << "titel=\"" << xmlescape(_titel) << "\" ";
-    ss << "programmname=\"" << xmlescape(_programmname) << "\" ";
-    ss << "parameter=\"" << xmlescape(_parameter) << "\" ";
-    ss << "pfad=\"" << xmlescape(_pfad) << "\" ";
-    ss << "unsichtbar=\"" << _unsichtbar << "\" ";
-    ss << "/>";
-    return ss.str();
-}
+//QString EntryApplication::string()
+//{
+//    ostringstream ss;
+//    ss << "<Programm ";
+//    ss << "titel=\"" << xmlescape(_titel) << "\" ";
+//    ss << "programmname=\"" << xmlescape(_programmname) << "\" ";
+//    ss << "parameter=\"" << xmlescape(_parameter) << "\" ";
+//    ss << "pfad=\"" << xmlescape(_pfad) << "\" ";
+//    ss << "unsichtbar=\"" << _unsichtbar << "\" ";
+//    ss << "/>";
+//    return ss.str();
+//}
 
 

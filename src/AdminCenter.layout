@@ -10,38 +10,38 @@
 	<File name="BackButton.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="208" topLine="0" />
 	</File>
-	<File name="BaseException.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="75" topLine="0" />
+	<File name="BaseException.hpp" open="0" top="0" tabpos="3">
+		<Cursor position="1178" topLine="18" />
 	</File>
 	<File name="EmptyButton.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="685" topLine="12" />
+		<Cursor position="685" topLine="15" />
 	</File>
 	<File name="EmptyButton.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="369" topLine="0" />
 	</File>
 	<File name="Entry.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="58" topLine="0" />
+		<Cursor position="163" topLine="0" />
 	</File>
 	<File name="EntryApplication.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="939" topLine="21" />
+		<Cursor position="1237" topLine="21" />
 	</File>
 	<File name="EntryApplication.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="124" topLine="0" />
+		<Cursor position="565" topLine="0" />
 	</File>
 	<File name="EntrySubmenu.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="105" topLine="5" />
+		<Cursor position="721" topLine="6" />
 	</File>
 	<File name="EntrySubmenu.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="116" topLine="0" />
+		<Cursor position="391" topLine="0" />
 	</File>
 	<File name="LoginDialog.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="71" topLine="46" />
+		<Cursor position="2706" topLine="58" />
 	</File>
 	<File name="LoginDialog.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="535" topLine="0" />
+		<Cursor position="518" topLine="0" />
 	</File>
 	<File name="MenuButton.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="153" topLine="0" />
+		<Cursor position="353" topLine="0" />
 	</File>
 	<File name="MenuButton.hpp" open="0" top="0" tabpos="4">
 		<Cursor position="330" topLine="0" />
@@ -53,51 +53,51 @@
 		<Cursor position="251" topLine="0" />
 	</File>
 	<File name="MenuPresenter.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="2068" topLine="15" />
+		<Cursor position="1755" topLine="0" />
 	</File>
 	<File name="MenuPresenter.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="499" topLine="0" />
+		<Cursor position="121" topLine="0" />
 	</File>
 	<File name="Menulist.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="111" topLine="2" />
+		<Cursor position="1526" topLine="45" />
 	</File>
 	<File name="Menulist.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="84" topLine="0" />
+		<Cursor position="681" topLine="12" />
 	</File>
-	<File name="OperatingSystem.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="39" topLine="1" />
+	<File name="OperatingSystem.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="18020" topLine="519" />
 	</File>
-	<File name="OperatingSystem.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="76" topLine="2" />
+	<File name="OperatingSystem.hpp" open="0" top="0" tabpos="2">
+		<Cursor position="1135" topLine="20" />
 	</File>
 	<File name="Settings.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="729" topLine="3" />
+		<Cursor position="848" topLine="25" />
 	</File>
 	<File name="Settings.hpp" open="0" top="0" tabpos="1">
-		<Cursor position="116" topLine="0" />
+		<Cursor position="478" topLine="9" />
 	</File>
 	<File name="SettingsParser.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="687" topLine="156" />
+		<Cursor position="2297" topLine="55" />
 	</File>
-	<File name="SettingsParser.hpp" open="1" top="1" tabpos="0">
-		<Cursor position="140" topLine="3" />
+	<File name="SettingsParser.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="860" topLine="5" />
 	</File>
 	<File name="auxiliaries.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1536" topLine="65" />
+		<Cursor position="2435" topLine="66" />
 	</File>
 	<File name="auxiliaries.hpp" open="0" top="0" tabpos="1">
 		<Cursor position="68" topLine="0" />
 	</File>
 	<File name="debug.h" open="0" top="0" tabpos="0">
-		<Cursor position="87" topLine="14" />
+		<Cursor position="119" topLine="0" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="270" topLine="0" />
+		<Cursor position="2780" topLine="78" />
 	</File>
 	<File name="xmlsp/xmlsp.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="54" />
 	</File>
 	<File name="xmlsp/xmlsp.h" open="0" top="0" tabpos="0">
-		<Cursor position="1634" topLine="30" />
+		<Cursor position="3830" topLine="114" />
 	</File>
 </CodeBlocks_layout_file>

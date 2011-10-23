@@ -7,8 +7,11 @@
 #include <QPushButton>
 #include <QIcon>
 #include <QSize>
+#include <QString>
 
-LoginDialog::LoginDialog(const std::string& defaultUser, QWidget* parent) : QDialog(parent)
+#include <vector>
+
+LoginDialog::LoginDialog(const QString& defaultUser, QWidget* parent) : QDialog(parent)
 {
     setupUi(this);
 
@@ -35,22 +38,22 @@ LoginDialog::LoginDialog(const std::string& defaultUser, QWidget* parent) : QDia
 
     // Fill the user list and activate the default user
     int activeRow = 0;
-    QString qdefaultUser = QString::fromLocal8Bit(defaultUser.c_str()).toLower();
-    std::vector<std::string> konten = OperatingSystem::lokale_benutzer();
-    for(std::vector<std::string>::const_iterator it=konten.begin(); it!=konten.end(); ++it)
+    QString qdefaultUser = defaultUser.toLower();
+    std::vector<QString> accounts = OperatingSystem::local_users();
+    for(std::vector<QString>::const_iterator it=accounts.begin(); it!=accounts.end(); ++it)
     {
-        QString user = QString::fromLocal8Bit(it->c_str());
+        QString user = *it;
         if(user.toLower() == qdefaultUser)
-            activeRow = it - konten.begin();
+            activeRow = it - accounts.begin();
         userList->addItem(user);
     }
     userList->setCurrentRow(activeRow);
     pwEdit->setFocus(Qt::ShortcutFocusReason);
 
     //TODO: This is just for testing
-    cDEBUG("Appdir: " + OperatingSystem::get_appdir());
-    cDEBUG("get_appname: " + OperatingSystem::get_appname());
-    cDEBUG("get_cd: " + OperatingSystem::get_cd());
+    cDEBUG(("Appdir: " + OperatingSystem::get_appdir()).toLocal8Bit().constData());
+    cDEBUG(("get_appname: " + OperatingSystem::get_appname()).toLocal8Bit().constData());
+    cDEBUG(("get_cd: " + OperatingSystem::get_cd()).toLocal8Bit().constData());
 
     // Store the active user and domain as default values
     OperatingSystem::get_user(Name, Domain);
@@ -79,6 +82,6 @@ void LoginDialog::scrollUserDown()
 
 void LoginDialog::postprocess()
 {
-    Name = userList->currentItem()->text().toStdString();
-    Passw = pwEdit->text().toStdString();
+    Name = userList->currentItem()->text();
+    Passw = pwEdit->text();
 }

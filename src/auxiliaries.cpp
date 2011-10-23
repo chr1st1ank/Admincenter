@@ -88,4 +88,5 @@ QString xmlescape(QString s)
     s = s.replace(QString("\""),QString("&quot;"));
     s = s.replace(QString("<"),QString("&lt;"));
     s = s.replace(QString(">"),QString("&gt;"));
+    return s;
 }

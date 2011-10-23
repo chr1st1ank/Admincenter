@@ -5,17 +5,18 @@
 
 #include <QDialog>
 #include <QWidget>
+#include <QString>
 
 class LoginDialog : public QDialog, public Ui::LoginDialog
 {
     Q_OBJECT
 
     public:
-        LoginDialog(const std::string& defaultUser="", QWidget* parent = 0);
+        LoginDialog(const QString& defaultUser="", QWidget* parent = 0);
 
-        std::string Name;
-        std::string Domain;
-        std::string Passw;
+        QString Name;
+        QString Domain;
+        QString Passw;
 
     public slots:
         void scrollUserUp();

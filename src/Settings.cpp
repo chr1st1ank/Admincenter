@@ -7,14 +7,14 @@
 #include <fstream>
 #include <QDir>
 
-Settings::Settings(std::string filename)
+Settings::Settings(QString filename)
 {
     cDEBUG("reading settings");
     // Datei einlesen
-    std::ifstream inFile(filename.c_str(), std::ios::in);
+    std::ifstream inFile(filename.toLocal8Bit().constData(), std::ios::in);
     if (!inFile)
     {
-        throw(FileIOError(std::string("Unable to read from settings file")+filename));
+        throw(FileIOError(QString("Unable to read from settings file ")+filename));
     }
     std::string xml = "";
     char c[128];
@@ -28,48 +28,48 @@ Settings::Settings(std::string filename)
     try{
         parseSettings(xml);
     }catch(const std::exception& ex){
-        throw(FileIOError(std::string("Failed to parse settings file")+filename));
+        throw(FileIOError(QString("Failed to parse settings file ")+filename));
     }
 }
 
-void Settings::save(const std::string& filename)
-{
-    // xml erzeugen
-    std::string xml = \
-                      "<?xml version=\"1.0\"?>\n"
-                      "<!-- \n"
-                      "    Erlaubte Tags:\n"
-                      "<Programm titel=\"Konsole\" programmname=\"cmd.exe\" parameter=\"\" pfad=\"\" unsichtbar=\"false\" />\n"
-                      "<Untermenue titel=\"Wartungsprogramme\" />\n"
-                      "<Benutzer name=\"Master\"/>\n"
-                      "\n"
-                      "XMLSP supports 1 byte entities in decimal and hex forms:\n"
-                      "	&#145;\n"
-                      "	&xb0;\n"
-                      "By default, the parser supports the following entities: &lt; &gt; &amp; &apos;\n"
-                      "&quot;. You may add more entites using Parser::add_entity(name, value):\n"
-                      "	parser.add_entity(\"nbsp\", 160);\n"
-                      "-->\n"
-                      "\n";
-    xml += _hauptmenue->toXML();
-    xml += "\n\n<Benutzer name=\""+_user+"\"/>\n\n";
-
-    // Datei schreiben
-    std::ofstream outFile(filename.c_str(), std::ios::out);
-    if (!outFile)
-    {
-        throw(FileIOError(std::string("Unable to write to settings file")));
-    }
-    outFile.write(xml.c_str(),xml.size());
-    outFile.close();
-}
+//void Settings::save(const QString& filename)
+//{
+//    // xml erzeugen
+//    std::string xml = \
+//                      "<?xml version=\"1.0\"?>\n"
+//                      "<!-- \n"
+//                      "    Erlaubte Tags:\n"
+//                      "<Programm titel=\"Konsole\" programmname=\"cmd.exe\" parameter=\"\" pfad=\"\" unsichtbar=\"false\" />\n"
+//                      "<Untermenue titel=\"Wartungsprogramme\" />\n"
+//                      "<Benutzer name=\"Master\"/>\n"
+//                      "\n"
+//                      "XMLSP supports 1 byte entities in decimal and hex forms:\n"
+//                      "	&#145;\n"
+//                      "	&xb0;\n"
+//                      "By default, the parser supports the following entities: &lt; &gt; &amp; &apos;\n"
+//                      "&quot;. You may add more entites using Parser::add_entity(name, value):\n"
+//                      "	parser.add_entity(\"nbsp\", 160);\n"
+//                      "-->\n"
+//                      "\n";
+//    xml += _hauptmenue->toXML();
+//    xml += "\n\n<Benutzer name=\""+_user+"\"/>\n\n";
+//
+//    // Datei schreiben
+//    std::ofstream outFile(filename.local8Bit().constData(), std::ios::out);
+//    if (!outFile)
+//    {
+//        throw(FileIOError(std::string("Unable to write to settings file")));
+//    }
+//    outFile.write(xml.c_str(),xml.size());
+//    outFile.close();
+//}
 
 Menulist* Settings::hauptmenue()
 {
     return _hauptmenue;
 }
 
-const std::string& Settings::user()
+const QString& Settings::user()
 {
     return _user;
 }

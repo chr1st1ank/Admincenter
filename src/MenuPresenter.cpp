@@ -70,7 +70,7 @@ void MenuPresenter::updateList(Menulist* ml)
     _lists.push(ml);
 
     // Change the window title
-    _menuDialog->setTitle(QString::fromLocal8Bit(ml->titel().c_str()));
+    _menuDialog->setTitle(ml->titel());
 }
 
 void MenuPresenter::showDialog()

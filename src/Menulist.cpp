@@ -11,18 +11,18 @@
 
 #include <iostream>
 
-Menulist::Menulist(const std::string& titel)
+Menulist::Menulist(const QString& titel)
     : _titel(titel), _eintragliste()
 {}
 //Menulist::Menulist(std::vector<Entry> liste) : _eintragliste(liste)
 //{}
-std::string Menulist::titel()
+QString Menulist::titel()
 {
     return _titel;
 }
-std::vector<std::string> Menulist::titelliste()
+std::vector<QString> Menulist::titelliste()
 {
-    std::vector<std::string> v;
+    std::vector<QString> v;
     for(std::vector<Entry*>::iterator i = _eintragliste.begin();
         i != _eintragliste.end(); ++i)
     {
@@ -51,28 +51,28 @@ void Menulist::del_menueeintrag(unsigned int position)
 {
     _eintragliste.erase(_eintragliste.begin()+position);
 }
-std::string Menulist::string()
-{
-    std::ostringstream ss;
-    for(std::vector<Entry*>::const_iterator i = _eintragliste.begin();
-        i != _eintragliste.end(); ++i)
-    {
-        ss << (*i)->string() << "\n";
-    }
-    return ss.str();
-}
-std::string Menulist::toXML()
-{
-    std::ostringstream ss;
-    ss << "<Hauptmenue>\n";
-    for(std::vector<Entry*>::const_iterator i = _eintragliste.begin();
-        i != _eintragliste.end(); ++i)
-    {
-        ss << (*i)->string() << "\n";
-    }
-    ss << "</Hauptmenue>";
-    return ss.str();
-}
+//QString Menulist::string()
+//{
+//    std::ostringstream ss;
+//    for(std::vector<Entry*>::const_iterator i = _eintragliste.begin();
+//        i != _eintragliste.end(); ++i)
+//    {
+//        ss << (*i)->string() << "\n";
+//    }
+//    return ss.str();
+//}
+//QString Menulist::toXML()
+//{
+//    std::ostringstream ss;
+//    ss << "<Hauptmenue>\n";
+//    for(std::vector<Entry*>::const_iterator i = _eintragliste.begin();
+//        i != _eintragliste.end(); ++i)
+//    {
+//        ss << (*i)->string() << "\n";
+//    }
+//    ss << "</Hauptmenue>";
+//    return ss.str();
+//}
 //Menulist* Menulist::fromXML(const std::string& xml)
 //{
 //	SettingsParser p;
