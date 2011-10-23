@@ -2,6 +2,7 @@
 
 #include "auxiliaries.hpp"
 #include "debug.h"
+#include "version.h"
 
 #include <QGridLayout>
 #include <QLayoutItem>
@@ -9,6 +10,7 @@
 #include <QShortcut>
 #include <QKeySequence>
 #include <QIcon>
+#include <QLabel>
 #include <QDebug>
 
 MenuDialog::MenuDialog()
@@ -36,6 +38,12 @@ MenuDialog::MenuDialog()
         pb->setDisabled(true);
     }
     _layout->addWidget(_buttons[0], 3, 1);
+    QLabel* versionLabel = new QLabel(
+        "Version " + QString::fromLocal8Bit(AutoVersion::FULLVERSION_STRING) +
+        " - Build " + QString::number(AutoVersion::BUILDS_COUNT),this);
+    _layout->addWidget(versionLabel, 4, 0, 1, 2);
+    QPushButton* infoButton = new QPushButton("Info", this);
+    _layout->addWidget(infoButton, 4, 2, Qt::AlignRight);
 //    for(int i=0; i!=3; ++i)
 //    {
 //        _layout->setRowMinimumHeight(i, 100);
