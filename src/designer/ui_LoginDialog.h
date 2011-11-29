@@ -1,10 +1,10 @@
 /********************************************************************************
-** Form generated from reading ui file 'LoginDialog.ui'
+** Form generated from reading UI file 'LoginDialog.ui'
 **
-** Created: Tue 18. Oct 15:27:15 2011
-**      by: Qt User Interface Compiler version 4.5.3
+** Created: Fri 25. Nov 13:01:57 2011
+**      by: Qt User Interface Compiler version 4.7.4
 **
-** WARNING! All changes made in this file will be lost when recompiling ui file!
+** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
 #ifndef UI_LOGINDIALOG_H
@@ -91,7 +91,6 @@ public:
         label_3->setText(QApplication::translate("LoginDialog", "Bitte w\303\244hlen Sie einen Benutzer aus und geben Sie das zugeh\303\266rige Passwort ein.", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("LoginDialog", "Benutzer:", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("LoginDialog", "Passwort:", 0, QApplication::UnicodeUTF8));
-        Q_UNUSED(LoginDialog);
     } // retranslateUi
 
 };

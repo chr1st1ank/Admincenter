@@ -6,28 +6,29 @@ TEMPLATE = app
 TARGET = Admincenter
 DEPENDPATH += . designer
 win32{
-INCLUDEPATH += . ../../../boost_1_40_0 T:/programmierung/boost_1_40_0
+#INCLUDEPATH += . ../../../boost_1_40_0 T:/programmierung/boost_1_40_0
 }unix{
 }
+LIBS += C:/Programme/CodeBlocks/MinGW/lib/libwininet.a
 UI_DIR += designer
 
 # General configuration
 CONFIG += qt
 CONFIG += static
 
-#CONFIG(debug, debug|release) {
+CONFIG(debug) {
 	CONFIG += console
 	#CONFIG += warn_on
 	DESTDIR = ../debug
 	OBJECTS_DIR = ../tmp/debug
 	MOC_DIR = ../tmp/debug
 	DEFINES += DEBUG
-#}else{
-#	DESTDIR = ../release
-#	OBJECTS_DIR = ../tmp/release
-#	MOC_DIR = ../tmp/release
-#	CONFIG -= console
-#}
+}else{
+	DESTDIR = ../release
+	OBJECTS_DIR = ../tmp/release
+	MOC_DIR = ../tmp/release
+	CONFIG -= console
+}
 
 # Input
 HEADERS += LoginDialog.hpp MenuDialog.hpp EntrySubmenu.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h

@@ -12,7 +12,7 @@
 #else
 #define DWORD int
 #define WCHAR wchar_t
-#define TCHAR char
+#define TCHAR WCHAR
 #endif
 
 namespace OperatingSystem{
@@ -41,14 +41,15 @@ namespace OperatingSystem{
         const size_t max_stringlaenge = 4096;
 
         // Aus einem String einen WCHAR-String machen
-        void StringToWCHAR(const std::string& s, WCHAR ws[max_stringlaenge]);
+//        void StringToWCHAR(const std::string& s, WCHAR ws[max_stringlaenge]);
 
         // Make a WCHAR-String out of a QString
-        void QStringToWCHAR(const QString& s, WCHAR ws[max_stringlaenge]);
+//        void QStringToWCHAR(const QString& s, WCHAR ws[max_stringlaenge]);
+        void QStringToWCHAR(const QString& s, WCHAR ws[], int ws_length);
 
-        std::string WCHARToString(WCHAR* ws);
+//        std::string WCHARToString(WCHAR* ws);
 
-        std::string TCHARToString(TCHAR* tc);
+//        std::string TCHARToString(TCHAR* tc);
 
         void throwError(DWORD errorid);
     }
@@ -78,11 +79,11 @@ namespace OperatingSystem{
                         , const QString& spfad = ""
                         , bool unsichtbar = false);
 
-    // Einen Prozess starten
-    void prozess_starten( const QString& sdateiname
-                        , const QString& sparameter = ""
-                        , const QString& spfad = ""
-                        , bool unsichtbar = "");
+//    // Einen Prozess starten
+//    void prozess_starten( const QString& sdateiname
+//                        , const QString& sparameter = ""
+//                        , const QString& spfad = ""
+//                        , bool unsichtbar = "");
 
     // Einen Prozess unter anderem Benutzernamen starten
     bool prozess_starten_als(const QString& Benutzername, const QString& Domain, const QString& Passwort

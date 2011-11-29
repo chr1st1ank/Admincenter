@@ -16,17 +16,17 @@
 		</MakeCommands>
 		<Build>
 			<Target title="Debug">
-				<Option output="../debug/Admincenter" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../debug" />
-				<Option object_output="obj/Debug/" />
+				<Option output="..\debug\Admincenter" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\debug" />
+				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="--nologin" />
+				<Option parameters="--nologina" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="../sharedLib/debug/libsharedLib.a" />
+					<Add library="..\sharedLib\debug\libsharedLib.a" />
 				</Linker>
 				<MakeCommands>
 					<Build command="$make -f $makefile" />
@@ -38,10 +38,10 @@
 				</MakeCommands>
 			</Target>
 			<Target title="Release">
-				<Option output="../release/AdminCenter" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../release" />
-				<Option object_output="obj/Release/" />
-				<Option type="0" />
+				<Option output="..\release\AdminCenter" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\release" />
+				<Option object_output="obj\Release\" />
+				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option parameters="--nologina" />
 				<Compiler>
@@ -49,7 +49,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="../sharedLib/release/libsharedLib.a" />
+					<Add library="..\sharedLib\release\libsharedLib.a" />
 				</Linker>
 				<MakeCommands>
 					<Build command="$make -f $makefile.$target" />
@@ -64,8 +64,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="$(#qt4.include)" />
-			<Add directory="$(#qt4.include)/QtGui" />
-			<Add directory="$(#qt4.include)/QtCore" />
+			<Add directory="$(#qt4.include)\QtGui" />
+			<Add directory="$(#qt4.include)\QtCore" />
 		</Compiler>
 		<Linker>
 			<Add library="QtCore4" />
@@ -104,8 +104,8 @@
 		<Unit filename="debug.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="version.h" />
-		<Unit filename="xmlsp/xmlsp.cpp" />
-		<Unit filename="xmlsp/xmlsp.h" />
+		<Unit filename="xmlsp\xmlsp.cpp" />
+		<Unit filename="xmlsp\xmlsp.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

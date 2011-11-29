@@ -4,13 +4,17 @@
 #include <vector>
 #include <fstream>
 
-#ifdef UNICODE
-#undef UNICODE
-#endif
+//#ifdef UNICODE
+//#undef UNICODE
+//#endif
 
 #ifdef _WIN32
+#ifndef UNICODE
+#define UNICODE
+#endif
 #define WINVER 0x0500
 #include <windows.h>
+//#include <lm.h>
 #include <tchar.h>
 #include <direct.h>
 #endif
@@ -35,7 +39,6 @@ QString OperatingSystem::Path::sep()
 #ifdef _WIN32
     return QString("\\");
 #else
-//    const QString OperatingSystem::Path::sep = QString("/");
     return QString("/");
 #endif
 }
@@ -78,58 +81,31 @@ QString OperatingSystem::Path::join(const QString& path1, const QString& path2)
 QString OperatingSystem::errorMessage(DWORD errorid)
 {
 #ifdef _WIN32
-    LPTSTR lpMsgBuf;
-    FormatMessage(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER |
+//    LPWSTR lpMsgBuf[max_stringlaenge];
+    WCHAR lpMsgBuf[max_stringlaenge];
+    FormatMessageW(
+        //FORMAT_MESSAGE_ALLOCATE_BUFFER |
         FORMAT_MESSAGE_FROM_SYSTEM |
         FORMAT_MESSAGE_IGNORE_INSERTS,
         NULL,
         errorid,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        MAKELANGID(LANG_SYSTEM_DEFAULT,SUBLANG_SYS_DEFAULT),//MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         lpMsgBuf,
-        0,
+        max_stringlaenge,
         NULL
     );
-//    std::string text((LPCTSTR)lpMsgBuf); //TODO:OK so?
-    QString text = QString::fromLocal8Bit(lpMsgBuf);
+    QString text = QString::fromWCharArray(lpMsgBuf);
     LocalFree(lpMsgBuf);
     return text;
 #else
     return QString("Error with id ")+ QString::number(errorid);
 #endif
 }
-/***************************************************************/
-// Aus einem String einen WCHAR-String machen
-/***************************************************************/
-void OperatingSystem::privat::StringToWCHAR(const std::string& s, WCHAR ws[max_stringlaenge])
-{
-#ifdef _WIN32
-    const char* cs = s.c_str();
-    MultiByteToWideChar(CP_OEMCP        //UINT CodePage
-                        ,MB_PRECOMPOSED //DWORD dwFlags
-                        ,cs             //LPCSTR lpMultiByteStr
-                        ,-1             //int cbMultiByte
-                        ,ws             //LPWSTR lpWideCharStr
-                        ,max_stringlaenge);          //int cchWideChar
-#else
-    unsigned i = 0;
-    for(std::string::const_iterator it=s.begin(); it!=s.end(); ++it)
-    {
-        if(i > max_stringlaenge)
-            return;
-        ws[i] = *it;
-    }
-#endif
-}
-
-void OperatingSystem::privat::QStringToWCHAR(const QString& s, WCHAR ws[max_stringlaenge])
-{
-    if(static_cast<size_t>(s.size()) > max_stringlaenge)
-    {
-        s.left(max_stringlaenge - 1).toWCharArray(ws);
-        return;
-    }
-    s.toWCharArray(ws);
+///***************************************************************/
+//// Aus einem String einen WCHAR-String machen
+///***************************************************************/
+//void OperatingSystem::privat::StringToWCHAR(const std::string& s, WCHAR ws[max_stringlaenge])
+//{
 //#ifdef _WIN32
 //    const char* cs = s.c_str();
 //    MultiByteToWideChar(CP_OEMCP        //UINT CodePage
@@ -139,52 +115,68 @@ void OperatingSystem::privat::QStringToWCHAR(const QString& s, WCHAR ws[max_stri
 //                        ,ws             //LPWSTR lpWideCharStr
 //                        ,max_stringlaenge);          //int cchWideChar
 //#else
+//    unsigned i = 0;
+//    for(std::string::const_iterator it=s.begin(); it!=s.end(); ++it)
+//    {
+//        if(i > max_stringlaenge)
+//            return;
+//        ws[i] = *it;
+//    }
 //#endif
+//}
+
+//void OperatingSystem::privat::QStringToWCHAR(const QString& s, WCHAR ws[max_stringlaenge])
+void OperatingSystem::privat::QStringToWCHAR(const QString& s, WCHAR ws[], int ws_length)
+{
+    if(ws_length <= 0)
+        return;
+    QString mod = s.left(ws_length - 1) + QChar('\0');
+    mod.toWCharArray(ws);
 }
 
-/***************************************************************/
-// Aus einem WCHAR-String einen String machen
-// !!! Achtung: funktioniert noch nicht !!!
-/***************************************************************/
-std::string OperatingSystem::privat::WCHARToString(WCHAR* ws)
-{
-#ifdef _WIN32
-    char cs[max_stringlaenge];
-    int len = WideCharToMultiByte(
-      CP_OEMCP          //UINT CodePage,
-      ,MB_PRECOMPOSED   //DWORD dwFlags,
-      ,ws               //LPCWSTR lpWideCharStr,
-      ,-1               //int cchWideChar,
-      ,cs               //LPSTR lpMultiByteStr,
-      ,max_stringlaenge //int cbMultiByte,
-      ,0                //LPCSTR lpDefaultChar,
-      ,0                //LPBOOL lpUsedDefaultChar
-    );
-    return std::string(cs, len);
-#else
-    return std::string(QString::fromWCharArray(ws).toLocal8Bit().constData());
-#endif
-}
+///***************************************************************/
+//// Aus einem WCHAR-String einen String machen
+//// !!! Achtung: funktioniert noch nicht !!!
+///***************************************************************/
+//std::string OperatingSystem::privat::WCHARToString(WCHAR* ws)
+//{
+//#ifdef _WIN32
+//    char cs[max_stringlaenge];
+//    int len = WideCharToMultiByte(
+//      CP_OEMCP          //UINT CodePage,
+//      ,MB_PRECOMPOSED   //DWORD dwFlags,
+//      ,ws               //LPCWSTR lpWideCharStr,
+//      ,-1               //int cchWideChar,
+//      ,cs               //LPSTR lpMultiByteStr,
+//      ,max_stringlaenge //int cbMultiByte,
+//      ,0                //LPCSTR lpDefaultChar,
+//      ,0                //LPBOOL lpUsedDefaultChar
+//    );
+//    return std::string(cs, len);
+//#else
+//    return std::string(QString::fromWCharArray(ws).toLocal8Bit().constData());
+//#endif
+//}
+//
+///***************************************************************/
+//// Aus einem TCHAR-String einen String machen
+///***************************************************************/
+//std::string OperatingSystem::privat::TCHARToString(TCHAR* tc)
+//{
+//#ifdef _WIN32
+//#ifdef UNICODE
+//    return WCHARToString(tc);
+//#else
+//    return std::string(tc);
+//#endif
+//#else
+//    return std::string(tc);
+//#endif
+//}
 
-/***************************************************************/
-// Aus einem TCHAR-String einen String machen
-/***************************************************************/
-std::string OperatingSystem::privat::TCHARToString(TCHAR* tc)
+void OperatingSystem::privat::throwError(DWORD errorid)
 {
-#ifdef _WIN32
-#ifdef UNICODE
-    return WCHARToString(tc);
-#else
-    return std::string(tc);
-#endif
-#else
-    return std::string(tc);
-#endif
-}
-
-void throwError(DWORD errorid)
-{
-    throw OSError(errorMessage(errorid));
+    throw new OSError(errorMessage(errorid));
 }
 
 /***************************************************************/
@@ -193,10 +185,10 @@ void throwError(DWORD errorid)
 QString OperatingSystem::get_cd()
 {
 #ifdef _WIN32
-    char workingdir[max_stringlaenge];
-    _getcwd(workingdir, max_stringlaenge);
-    QString ao = QString::fromLocal8Bit(workingdir);
-    return Path::join(ao, Path::sep);
+    wchar_t workingdir[max_stringlaenge];
+    _wgetcwd(workingdir, max_stringlaenge);
+    QString ao = QString::fromWCharArray(workingdir,max_stringlaenge);//TODO: Second parameter ok?
+    return Path::join(ao, Path::sep());
 #else
     return(".");
 #endif
@@ -208,13 +200,13 @@ QString OperatingSystem::get_cd()
 QString OperatingSystem::get_appname()
 {
 #ifdef _WIN32
-    char szAppPath[MAX_PATH] = "";
-//    WCHAR szAppPath[MAX_PATH] = "";//TODO: ok so?
-    DWORD len = GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
+    WCHAR szAppPath[MAX_PATH] = L"";//TODO: ok so?
+    DWORD len = GetModuleFileNameW(0, szAppPath, MAX_PATH);
 
     // Extract executable name
-    std::string strAppDirectory(szAppPath, static_cast<size_t>(len));
-    return QString::fromLocal8Bit(strAppDirectory.substr(strAppDirectory.rfind("\\") + 1, strAppDirectory.length()));
+    QString appDirectory = QString::fromWCharArray(szAppPath);
+    int index = appDirectory.lastIndexOf(Path::sep());
+    return appDirectory.right(appDirectory.size() - index - 1);
 #else
     return QCoreApplication::instance()->applicationName();
 #endif
@@ -225,17 +217,16 @@ QString OperatingSystem::get_appname()
 /***************************************************************/
 QString OperatingSystem::get_appdir()
 {
+#ifdef _WIN32
+    WCHAR szAppPath[MAX_PATH] = L"";//TODO: ok so?
+    DWORD len = GetModuleFileNameW(0, szAppPath, MAX_PATH);
+
+    // Extract executable name
+    QString appDirectory = QString::fromWCharArray(szAppPath);
+    return appDirectory.left(appDirectory.lastIndexOf(Path::sep()));
+#else
     return QCoreApplication::instance()->applicationDirPath();
-//#ifdef _WIN32
-//    char szAppPath[MAX_PATH] = "";
-//    DWORD len = GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
-//
-//    // Extract directory
-//    std::string strAppDirectory(szAppPath, static_cast<size_t>(len));
-//    return strAppDirectory.substr(0, strAppDirectory.rfind("\\"));
-//#else
-//    return ".";
-//#endif
+#endif
 }
 
 
@@ -250,14 +241,20 @@ bool OperatingSystem::get_user(QString& Name, QString& Domain)
     TOKEN_USER* ptu;
     HANDLE hProcessToken;
     DWORD dwLen = 0, cbAccountName, cbDomainName;
-    TCHAR szAccountName[max_stringlaenge], szDomainName[max_stringlaenge];
+    WCHAR szAccountName[max_stringlaenge], szDomainName[max_stringlaenge];
 
     if(OpenProcessToken(GetCurrentProcess(), TOKEN_ALL_ACCESS, &hProcessToken))
     {
+//        BOOL WINAPI GetTokenInformation(
+//          __in       HANDLE TokenHandle,
+//          __in       TOKEN_INFORMATION_CLASS TokenInformationClass,
+//          __out_opt  LPVOID TokenInformation,
+//          __in       DWORD TokenInformationLength,
+//          __out      PDWORD ReturnLength
+//        );
         GetTokenInformation(hProcessToken, TokenUser, NULL, 0, &dwLen);
 
-        if((dwLen) && (NULL != (ptu = (TOKEN_USER*)HeapAlloc(GetProcessHeap(),
-                           0, dwLen))))
+        if((dwLen) && (NULL != (ptu = (TOKEN_USER*)HeapAlloc(GetProcessHeap(), 0, dwLen))))
         {
             if(GetTokenInformation(hProcessToken, TokenUser, (PVOID)ptu,
                                 dwLen, &dwLen))
@@ -265,21 +262,25 @@ bool OperatingSystem::get_user(QString& Name, QString& Domain)
                 cbAccountName = sizeof((szAccountName)) / sizeof((szAccountName)[0]);
                 cbDomainName = sizeof((szDomainName)) / sizeof((szDomainName)[0]);
 
-                if(LookupAccountSid(NULL, ptu->User.Sid, szAccountName,
+                if(LookupAccountSidW(NULL, ptu->User.Sid, szAccountName,
                                &cbAccountName, szDomainName,
                                &cbDomainName, &snu))
                 {
-                    Name = QString::fromLocal8Bit(szAccountName);
-                    Domain = QString::fromLocal8Bit(szDomainName);
+                    Name = QString::fromWCharArray(szAccountName);
+                    Domain = QString::fromWCharArray(szDomainName);
                 }
                 else
                 {
-                    throwError(GetLastError());
+                    CloseHandle(hProcessToken);
+                    HeapFree(GetProcessHeap(), 0, (PVOID)ptu);
+                    privat::throwError(GetLastError());
                 }
             }
             else
             {
-                throwError(GetLastError());
+                CloseHandle(hProcessToken);
+                HeapFree(GetProcessHeap(), 0, (PVOID)ptu);
+                privat::throwError(GetLastError());
             }
             HeapFree(GetProcessHeap(), 0, (PVOID)ptu);
         }
@@ -287,7 +288,7 @@ bool OperatingSystem::get_user(QString& Name, QString& Domain)
     }
     else
     {
-        throwError(GetLastError());
+        privat::throwError(GetLastError());
     }
     return true;
 #else
@@ -301,14 +302,30 @@ bool OperatingSystem::get_user(QString& Name, QString& Domain)
 /***************************************************************/
 vector<QString> OperatingSystem::local_users()
 {
+    //TODO: Find another solution!!!
     vector<QString> liste;
 #ifdef _WIN32
+//NET_API_STATUS NetUserEnum(
+//  __in     LPCWSTR servername,
+//  __in     DWORD level,
+//  __in     DWORD filter,
+//  __out    LPBYTE *bufptr,
+//  __in     DWORD prefmaxlen,
+//  __out    LPDWORD entriesread,
+//  __out    LPDWORD totalentries,
+//  __inout  LPDWORD resume_handle
+//);
+//    LPBYTE *bufptr;
+//    DWORD entriesread,totalentries;
+//    NetUserEnum(NULL,0,0,bufptr,MAX_PREFERRED_LENGTH,&entriesread,&totalentries,NULL);
+//    NetApiBufferFree(bufptr);
+
     system("net users > benutzerliste.dat");
     ifstream datei("benutzerliste.dat");
     bool lesen = false;
     while(datei && !datei.eof())
     {
-        string zeile;
+        std::string zeile;
         datei >> zeile;
         if(zeile == "Der")
             lesen = false;
@@ -316,7 +333,7 @@ vector<QString> OperatingSystem::local_users()
         if(lesen && zeile != "Gast"
                  && zeile != "Hilfeassistent"
                  && zeile != "SUPPORT_388945a0"){
-            liste.push_back(QString::fromLocal8Bit(zeile));
+            liste.push_back(QString::fromLocal8Bit(zeile.c_str()));
         }
 
         if(zeile == "-------------------------------------------------------------------------------")
@@ -356,27 +373,35 @@ vector<QString> OperatingSystem::local_users()
 /***************************************************************/
 // Ein Programm starten
 /***************************************************************/
-void OperatingSystem::programm_starten(const QString& sdateiname
+void OperatingSystem::programm_starten(const QString& sfilename
                     , const QString& sparameter
-                    , const QString& spfad       // = NULL
+                    , const QString& spath       // = NULL
                     , bool invisible)   // = false
 {
 #ifdef _WIN32
     int sichtbarkeit = invisible ? SW_HIDE : SW_SHOWNORMAL;
 
-    HINSTANCE i=ShellExecute(NULL,NULL,sdateiname.local8Bit().constData(),
-                             sparameter.local8Bit().constData(),
-                             spfad.local8Bit().constData(),sichtbarkeit);
+    // Create wstrings
+    WCHAR wfilename[sfilename.size()+1];
+    WCHAR wparameter[sparameter.size()+1];
+    WCHAR wpath[spath.size()+1];
+    privat::QStringToWCHAR(sfilename,wfilename,sfilename.size()+1);
+    privat::QStringToWCHAR(sparameter,wparameter,sparameter.size()+1);
+    privat::QStringToWCHAR(spath,wpath,spath.size()+1);
 
+    // Do execution
+    HINSTANCE i=ShellExecuteW(NULL,NULL,wfilename,wparameter,wpath,sichtbarkeit);
+
+    // Check for errors
     if(int(i)<=32) {
-        //ShellExecute meldet einen Fehler
-        ostringstream ss;
-        ss << "Problem beim Starten des Programms:" << std::endl;
-        ss << errorMessage(GetLastError()).toLocal8Bit().constData() << std::endl;
-        ss << "Dateiname: \"" << sdateiname.toLocal8Bit().constData() << "\"" << std::endl;
-        ss << "Pfad: \"" << spfad.toLocal8Bit().constData() << "\"" << std::endl;
-        ss << "Parameter: \"" << sparameter.toLocal8Bit().constData() << "\"" << std::endl;
-        ss << "Invisible: \"" << (invisible ? "True" : "False") << "\"" << std::endl;
+        //ShellExecute reports an error
+        QString errorText = "Problem starting program: ";
+        errorText.append(errorMessage(GetLastError()));
+        errorText.append(" Filename: \"" + sfilename + "\"");
+        errorText.append(" Path: \"" + spath + "\"");
+        errorText.append(" Parameter: \"" + sparameter + "\"");
+        errorText.append(" Invisible: \"" + (invisible ? QString("True") : QString("False")) + "\"");
+        throw new OSError(errorText);
 //        fehlermeldung(ss.str(),"Fehler");
     }
 #else
@@ -390,70 +415,23 @@ void OperatingSystem::programm_starten(const QString& sdateiname
 #endif
 }
 
-/***************************************************************/
-// Einen Prozess starten
-/***************************************************************/
-void OperatingSystem::prozess_starten(const QString& sdateiname
-                    , const QString& sparameter
-                    , const QString& spfad       // = NULL
-                    , bool invisible)   // = false
-{
-#ifdef _WIN32
-    QString commandLine = path.join(spfad,sdateiname) + " " + sparameter;
-
-    // TODO: Very ugly to cast the const pointers to non-const!
-    CHAR* pcommandLine = (CHAR*)commandLine.local8Bit().constData();
-    CHAR* ppfad = (CHAR*)spfad.local8Bit().constData();
-    SECURITY_ATTRIBUTES sa;
-        sa.nLength=sizeof(sa);
-    STARTUPINFO si;
-        si.dwFlags=STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
-        si.wShowWindow=SW_SHOWNORMAL;
-        ZeroMemory( &si, sizeof(si) );
-        si.cb = sizeof(si);
-    PROCESS_INFORMATION pi;
-        ZeroMemory( &pi, sizeof(pi) );
-    CreateProcess( NULL      //LPCTSTR lpApplicationName,
-                 , pcommandLine      //LPTSTR lpCommandLine,
-                 , &sa         //LPSECURITY_ATTRIBUTES lpProcessAttributes,
-                 , &sa        //LPSECURITY_ATTRIBUTES lpThreadAttributes,
-                 , TRUE        //BOOL bInheritHandles,
-                 , 0           //DWORD dwCreationFlags,
-                 , NULL        //LPVOID lpEnvironment,
-                 , ppfad       //LPCTSTR lpCurrentDirectory,
-                 , &si        //LPSTARTUPINFO lpStartupInfo,
-                 , &pi);      //LPPROCESS_INFORMATION lpProcessInformation);
-#else
-    ostringstream ss;
-    ss << "Starting process:" << std::endl;
-    ss << "Dateiname: \"" << sdateiname.toLocal8Bit().constData() << "\"" << std::endl;
-    ss << "Pfad: \"" << spfad.toLocal8Bit().constData() << "\"" << std::endl;
-    ss << "Parameter: \"" << sparameter.toLocal8Bit().constData() << "\"" << std::endl;
-    ss << "Invisible: \"" << (invisible ? "True" : "False") << "\"" << std::endl;
-    cDEBUG(ss.str());
-#endif
-}
-/***************************************************************/
-// Einen Prozess unter anderem Benutzernamen starten
-/***************************************************************/
-//#include <locale>
-//#include <iostream>
-//bool NT4RunAsUser(const string& UserName,
-//                const string& Password,
-//                const string& DomainName,
-//                const string& CommandLine,
-//                const string& CurrentDirectory)
+///***************************************************************/
+//// Einen Prozess starten
+///***************************************************************/
+//void OperatingSystem::prozess_starten(const QString& sdateiname
+//                    , const QString& sparameter
+//                    , const QString& spfad       // = NULL
+//                    , bool invisible)   // = false
 //{
-//    bool returnvalue = true;
-////    WCHAR wBenutzername[max_stringlaenge];
-////        StringToWCHAR(Benutzername,wBenutzername);
-////    WCHAR wDomain[max_stringlaenge];
-////        StringToWCHAR(Domain,wDomain);
-////    WCHAR wPasswort[max_stringlaenge];
-////        StringToWCHAR(Passwort,wPasswort);
-////    string Kommandozeile = Pfad + Dateiname + Parameter;
-////        WCHAR wKommandozeile[max_stringlaenge];
-////        StringToWCHAR(Kommandozeile,wKommandozeile);
+//    //TODO: Do we really need this?
+//#ifdef _WIN32
+//    QString commandLine = Path.join(spfad,sdateiname) + " " + sparameter;
+//
+//    // TODO: Very ugly to cast the const pointers to non-const!
+//    CHAR* pcommandLine = (CHAR*)commandLine.toLocal8Bit().constData();
+//    CHAR* ppfad = (CHAR*)spfad.toLocal8Bit().constData();
+//    SECURITY_ATTRIBUTES sa;
+//        sa.nLength=sizeof(sa);
 //    STARTUPINFO si;
 //        si.dwFlags=STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
 //        si.wShowWindow=SW_SHOWNORMAL;
@@ -461,132 +439,32 @@ void OperatingSystem::prozess_starten(const QString& sdateiname
 //        si.cb = sizeof(si);
 //    PROCESS_INFORMATION pi;
 //        ZeroMemory( &pi, sizeof(pi) );
-////    WCHAR wArbeitspfad[max_stringlaenge];
-////        StringToWCHAR(Pfad,wArbeitspfad);
-//
-//    HANDLE hFirstToken;
-//
-//    int Result = LogonUser(
-//        (CHAR*)UserName.c_str(),
-//        (CHAR*)DomainName.c_str(),
-//        (CHAR*)Password.c_str(),
-//        LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, &hFirstToken);
-//    if(Result == 0)
-//    {
-//        //        ' LogonUser will fail with 1314 error code, if the user account associated
-//        //        ' with the calling security context does not have
-//        //        ' "Act as part of the operating system" permission
-//        ostringstream ss;
-//        ss << "Problem beim Starten des Programms." << std::endl;
-//        ss << fehlertext(GetLastError()) << std::endl;
-//        fehlermeldung(ss.str(),"Fehler");
-//        returnvalue = false;
-//    }
-//    HANDLE hToken;
-//    SECURITY_ATTRIBUTES sa;
-//    sa.bInheritHandle       = false;
-//    sa.nLength              = sizeof(sa);
-//    sa.lpSecurityDescriptor = 0;
-//    Result = DuplicateTokenEx(&hFirstToken, GENERIC_ALL, &sa, SecurityImpersonation, TokenPrimary, &hToken);
-//    if(Result == 0)
-//    {
-//        ostringstream ss;
-//        ss << "Token duplication failed." << std::endl;
-//        ss << fehlertext(GetLastError()) << std::endl;
-//        fehlermeldung(ss.str(),"Fehler");
-//        return false;
-//    }
-//    CloseHandle(hFirstToken);
-//
-//    Result = ImpersonateLoggedOnUser(hToken);
-//    if(Result == 0)
-//    {
-//        ostringstream ss;
-//        ss << "Impersonation failed." << std::endl;
-//        ss << fehlertext(GetLastError()) << std::endl;
-//        fehlermeldung(ss.str(),"Fehler");
-//        return false;
-//    }
-//
-//    Result = CreateProcessAsUser(hToken, 0, (CHAR*)CommandLine.c_str(), 0, 0, false,
-//                CREATE_DEFAULT_ERROR_MODE,
-//                0, (CHAR*)CurrentDirectory.c_str(), &si, &pi);
-//    if(Result == 0)
-//    {
-//        //' CreateProcessAsUser will fail with 1314 error code, if the user
-//        //' account associated with the calling security context does not have
-//        //' the following two permissions
-//        ostringstream ss;
-//        ss << "Problem beim Starten des Programms." << std::endl;
-//        ss << fehlertext(GetLastError()) << std::endl;
-//        fehlermeldung(ss.str(),"Fehler");
-//        returnvalue = false;
-//    }
-//
-//    CloseHandle(pi.hProcess);
-//    CloseHandle(pi.hThread);
-//    CloseHandle(hToken);
-//    return returnvalue;
+//    CreateProcess( NULL      //LPCTSTR lpApplicationName,
+//                 , pcommandLine      //LPTSTR lpCommandLine,
+//                 , &sa         //LPSECURITY_ATTRIBUTES lpProcessAttributes,
+//                 , &sa        //LPSECURITY_ATTRIBUTES lpThreadAttributes,
+//                 , TRUE        //BOOL bInheritHandles,
+//                 , 0           //DWORD dwCreationFlags,
+//                 , NULL        //LPVOID lpEnvironment,
+//                 , ppfad       //LPCTSTR lpCurrentDirectory,
+//                 , &si        //LPSTARTUPINFO lpStartupInfo,
+//                 , &pi);      //LPPROCESS_INFORMATION lpProcessInformation);
+//#else
+//    ostringstream ss;
+//    ss << "Starting process:" << std::endl;
+//    ss << "Dateiname: \"" << sdateiname.toLocal8Bit().constData() << "\"" << std::endl;
+//    ss << "Pfad: \"" << spfad.toLocal8Bit().constData() << "\"" << std::endl;
+//    ss << "Parameter: \"" << sparameter.toLocal8Bit().constData() << "\"" << std::endl;
+//    ss << "Invisible: \"" << (invisible ? "True" : "False") << "\"" << std::endl;
+//    cDEBUG(ss.str());
+//#endif
 //}
-
+/***************************************************************/
+// Einen Prozess unter anderem Benutzernamen starten
+/***************************************************************/
 bool OperatingSystem::prozess_starten_als(const QString& Benutzername, const QString& Domain, const QString& Passwort
                         ,const QString& Dateiname, const QString& _Parameter, const QString& _Pfad)
 {
-#ifdef _WIN32
-    QString path = _Pfad;
-    // Cut quotes from begin and end
-    if(path.startsWith('"') && path.endsWith('"'))
-        path = path.mid(1, path.size() - 2)
-    // Chop a separator from the end
-    if(path.endsWith(path.sep))
-        path.chop(1);
-    QString parameter;
-    if(_Parameter.startsWith(' '))
-        parameter = _Parameter;
-    else
-        parameter = ' ' + _Parameter;
-
-    bool returnvalue = true;
-    WCHAR wBenutzername[max_stringlaenge];
-        QStringToWCHAR(Benutzername,wBenutzername);
-    WCHAR wDomain[max_stringlaenge];
-        QStringToWCHAR(Domain,wDomain);
-    WCHAR wPasswort[max_stringlaenge];
-        QStringToWCHAR(Passwort,wPasswort);
-    WCHAR wApplicationName[max_stringlaenge];
-        QStringToWCHAR(Dateiname,wApplicationName);
-    QString commandLine = '"' + path.join(path,Dateiname) + '"' + parameter;
-        WCHAR wCommandLine[max_stringlaenge];
-        QStringToWCHAR(commandLine,wCommandLine);
-    PROCESS_INFORMATION pi;
-        memset(&pi, 0, sizeof(pi));
-    STARTUPINFOW si;
-        si.dwFlags=STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
-        si.wShowWindow=SW_SHOWNORMAL;
-        ZeroMemory( &si, sizeof(si) );
-        si.cb = sizeof(si);
-    WCHAR wWorkingPath[max_stringlaenge];
-        QStringToWCHAR(path,wWorkingPath);
-
-    if(!CreateProcessWithLogonW( wBenutzername, wDomain, wPasswort
-                               , LOGON_WITH_PROFILE, wApplicationName
-                               , wCommandLine, CREATE_NEW_CONSOLE, NULL, wWorkingPath
-                               , &si, &pi))
-    {
-        ostringstream ss;
-        ss << "Problem beim Starten des Programms:" << std::endl;
-        ss << fehlertext(GetLastError()) << std::endl;
-        ss << "Dateiname: \"" << Dateiname << "\"" << std::endl;
-        ss << "Pfad: \"" << _Pfad << "\"" << std::endl;
-        ss << "Parameter: \"" << _Parameter << "\"" << std::endl;
-//        fehlermeldung(ss.str(),"Fehler");
-        returnvalue = false;
-    }
-
-    CloseHandle(pi.hProcess);
-    CloseHandle(pi.hThread);
-    return returnvalue;
-#else
     ostringstream ss;
     ss << "Starting process:" << std::endl;
     ss << "As user: \"" << Benutzername.toLocal8Bit().constData() << "\"" << std::endl;
@@ -594,6 +472,71 @@ bool OperatingSystem::prozess_starten_als(const QString& Benutzername, const QSt
     ss << "Pfad: \"" << _Pfad.toLocal8Bit().constData() << "\"" << std::endl;
     ss << "Parameter: \"" << _Parameter.toLocal8Bit().constData() << "\"" << std::endl;
     cDEBUG(ss.str());
+#ifdef _WIN32
+    QString path = _Pfad;
+    // Cut quotes from begin and end
+    if(path.startsWith('"') && path.endsWith('"'))
+        path = path.mid(1, path.size() - 2);
+    // Chop a separator from the end
+    if(path.endsWith(Path::sep()))
+        path.chop(1);
+    // Prepare parameters. We need a leading space.
+    QString parameter;
+    if(_Parameter.startsWith(' '))
+        parameter = _Parameter;
+    else
+        parameter = ' ' + _Parameter;
+    // Define the command line to be passed to the new process
+    QString commandLine = '"' + Path::join(path,Dateiname) + '"' + parameter;
+
+    bool returnvalue = true;
+    WCHAR wBenutzername[Benutzername.size()+1];
+    WCHAR wDomain[Domain.size()+1];
+    WCHAR wPasswort[Passwort.size()+1];
+    WCHAR wApplicationName[Dateiname.size()+1];
+//    WCHAR wApplicationName[Path::join(path,Dateiname).size()+1];
+    WCHAR wCommandLine[commandLine.size()+1];
+    WCHAR wWorkingPath[path.size() + 1];
+
+    QStringToWCHAR(Benutzername,wBenutzername,Benutzername.size()+1);
+    QStringToWCHAR(Domain,wDomain,Domain.size()+1);
+    QStringToWCHAR(Passwort,wPasswort,Passwort.size()+1);
+    QStringToWCHAR(Dateiname,wApplicationName,Dateiname.size()+1);
+//    QStringToWCHAR(Path::join(path,Dateiname),wApplicationName,Path::join(path,Dateiname).size()+1);
+    QStringToWCHAR(commandLine,wCommandLine,commandLine.size()+1);
+    QStringToWCHAR(path,wWorkingPath,path.size() + 1);
+
+    PROCESS_INFORMATION pi;
+    memset(&pi, 0, sizeof(pi));
+    STARTUPINFOW si;
+    si.dwFlags=STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
+    si.wShowWindow=SW_SHOWNORMAL;
+    ZeroMemory( &si, sizeof(si) );
+    si.cb = sizeof(si);
+
+    if(!CreateProcessWithLogonW( wBenutzername, wDomain, wPasswort
+                               , LOGON_WITH_PROFILE, wApplicationName
+                               , wCommandLine, CREATE_NEW_CONSOLE, NULL, wWorkingPath
+                               , &si, &pi))
+    {
+        QString errorText = "Problem starting a process: ";
+        errorText.append(errorMessage(GetLastError()));
+        errorText.append(" Username: \"" + QString::fromWCharArray(wBenutzername) + "\"");
+        errorText.append(" Domain: \"" + QString::fromWCharArray(wDomain) + "\"");
+        errorText.append(" Password: \"" + QString::fromWCharArray(wPasswort) + "\"");
+        errorText.append(" Filename: \"" + QString::fromWCharArray(wApplicationName) + "\"");
+        errorText.append(" Path: \"" + QString::fromWCharArray(wWorkingPath) + "\"");
+        errorText.append(" Kommandozeile: \"" + QString::fromWCharArray(wCommandLine) + "\"");
+//        throw OSError(errorText);
+//        fehlermeldung(ss.str(),"Fehler");
+        cDEBUG(errorText.toLocal8Bit().constData());
+        returnvalue = false;
+    }
+
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+    return returnvalue;
+#else
     return true;
 #endif
 }

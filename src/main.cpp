@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
             {
                 // Try to start the application as different user
                 if(OperatingSystem::prozess_starten_als(ad.Name, ad.Domain, ad.Passw, Prog, Param, Verz))
+//                if(OperatingSystem::prozess_starten_als(ad.Name, ad.Domain, ad.Passw, "IEXPLORE", "", "C:\\EigeneProgramme\\browsers\\IE401_NT"))
                 {
                     return returnCode;
                 }
