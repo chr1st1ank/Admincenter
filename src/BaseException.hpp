@@ -7,11 +7,16 @@
 class BaseException : public std::exception
 {
     private:
-        QString _what;
+        QString _short;
+        QString _detailed;
 
     public:
-        BaseException(const QString& what)
-            : _what(what)
+        BaseException(const QString& short_description)
+            : _short(short_description), _detailed()
+        {}
+
+        BaseException(const QString& short_description, const QString& detailed_description)
+            : _short(short_description), _detailed(detailed_description)
         {}
 
         ~BaseException() throw()
@@ -19,12 +24,17 @@ class BaseException : public std::exception
 
         const char* what() const throw()
         {
-            return _what.toLocal8Bit().constData();
+            return _short.toLocal8Bit().constData();
         }
 
-        const QString& what_string() const throw()
+        const QString& shortDescription() const throw()
         {
-            return _what;
+            return _short;
+        }
+
+        const QString& detailedDescription() const throw()
+        {
+            return _detailed;
         }
 
         virtual QString name() const throw() = 0;
@@ -34,7 +44,10 @@ class BaseException : public std::exception
 class N : public BaseException                          \
 {                                                       \
     public:                                             \
-        N(const QString& what) : BaseException(what)\
+        N(const QString& short_description) : BaseException(short_description)\
+        {}                                              \
+        N(const QString& short_description,const QString& detailed_description) \
+            : BaseException(short_description,detailed_description)\
         {}                                              \
         ~N() throw()                                    \
         {}                                              \

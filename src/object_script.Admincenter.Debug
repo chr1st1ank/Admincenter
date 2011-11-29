@@ -1,11 +1,14 @@
 INPUT(
+./..\tmp\debug\Application.o
 ./..\tmp\debug\LoginDialog.o
 ./..\tmp\debug\main.o
 ./..\tmp\debug\MenuDialog.o
 ./..\tmp\debug\EntrySubmenu.o
+./..\tmp\debug\EntryReload.o
 ./..\tmp\debug\MenuPresenter.o
 ./..\tmp\debug\MenuButton.o
 ./..\tmp\debug\BackButton.o
+./..\tmp\debug\ReloadButton.o
 ./..\tmp\debug\EmptyButton.o
 ./..\tmp\debug\auxiliaries.o
 ./..\tmp\debug\EntryApplication.o
@@ -17,4 +20,5 @@ INPUT(
 ./..\tmp\debug\moc_LoginDialog.o
 ./..\tmp\debug\moc_MenuButton.o
 ./..\tmp\debug\moc_BackButton.o
+./..\tmp\debug\moc_ReloadButton.o
 );

@@ -21,7 +21,7 @@
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="--nologina" />
+				<Option parameters="--nologin" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -73,6 +73,8 @@
 			<Add directory="$(#qt4.lib)" />
 		</Linker>
 		<Unit filename="AdminCenter.pro" />
+		<Unit filename="Application.cpp" />
+		<Unit filename="Application.hpp" />
 		<Unit filename="BackButton.cpp" />
 		<Unit filename="BackButton.hpp" />
 		<Unit filename="BaseException.hpp" />
@@ -81,6 +83,8 @@
 		<Unit filename="Entry.hpp" />
 		<Unit filename="EntryApplication.cpp" />
 		<Unit filename="EntryApplication.hpp" />
+		<Unit filename="EntryReload.cpp" />
+		<Unit filename="EntryReload.hpp" />
 		<Unit filename="EntrySubmenu.cpp" />
 		<Unit filename="EntrySubmenu.hpp" />
 		<Unit filename="LoginDialog.cpp" />
@@ -95,6 +99,8 @@
 		<Unit filename="Menulist.hpp" />
 		<Unit filename="OperatingSystem.cpp" />
 		<Unit filename="OperatingSystem.hpp" />
+		<Unit filename="ReloadButton.cpp" />
+		<Unit filename="ReloadButton.hpp" />
 		<Unit filename="Settings.cpp" />
 		<Unit filename="Settings.hpp" />
 		<Unit filename="SettingsParser.cpp" />

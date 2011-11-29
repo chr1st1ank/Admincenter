@@ -1,12 +1,7 @@
 #include <iostream>
-//#include <string>
 #include <sstream>
 #include <vector>
 #include <fstream>
-
-//#ifdef UNICODE
-//#undef UNICODE
-//#endif
 
 #ifdef _WIN32
 #ifndef UNICODE
@@ -22,10 +17,8 @@
 #include "OperatingSystem.hpp"
 #include "auxiliaries.hpp"
 #include "debug.h"
-//#include "ui.hpp"
 #include <exception>
 
-// Maybe it's better to use Qt than the Winapi?
 #include <QApplication>
 #include <QString>
 
@@ -50,34 +43,6 @@ QString OperatingSystem::Path::join(const QString& path1, const QString& path2)
     return path1 + OperatingSystem::Path::sep() + path2;
 }
 
-//void OperatingSystem::fehlermeldung(std::string Text, std::string Titel)
-//{
-//#ifdef _WIN32
-//    MessageBox( NULL, (LPTSTR)Text.c_str(), (LPTSTR)Titel.c_str()
-//              , MB_OK | MB_SETFOREGROUND | MB_ICONEXCLAMATION);
-//#else
-//#endif
-//}
-//void OperatingSystem::fehlermeldung(DWORD fehlernummer)
-//{
-//#ifdef _WIN32
-//    LPVOID lpMsgBuf;
-//    FormatMessage(
-//        FORMAT_MESSAGE_ALLOCATE_BUFFER |
-//        FORMAT_MESSAGE_FROM_SYSTEM |
-//        FORMAT_MESSAGE_IGNORE_INSERTS,
-//        NULL,
-//        fehlernummer,
-//        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-//        (LPTSTR) &lpMsgBuf,
-//        0,
-//        NULL
-//    );
-//    MessageBox(NULL, (LPCTSTR)lpMsgBuf, NULL, MB_OK | MB_SETFOREGROUND | MB_ICONEXCLAMATION);
-//    LocalFree(lpMsgBuf);
-//#else
-//#endif
-//}
 QString OperatingSystem::errorMessage(DWORD errorid)
 {
 #ifdef _WIN32
@@ -89,7 +54,7 @@ QString OperatingSystem::errorMessage(DWORD errorid)
         FORMAT_MESSAGE_IGNORE_INSERTS,
         NULL,
         errorid,
-        MAKELANGID(LANG_SYSTEM_DEFAULT,SUBLANG_SYS_DEFAULT),//MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         lpMsgBuf,
         max_stringlaenge,
         NULL
@@ -101,31 +66,10 @@ QString OperatingSystem::errorMessage(DWORD errorid)
     return QString("Error with id ")+ QString::number(errorid);
 #endif
 }
+
 ///***************************************************************/
 //// Aus einem String einen WCHAR-String machen
 ///***************************************************************/
-//void OperatingSystem::privat::StringToWCHAR(const std::string& s, WCHAR ws[max_stringlaenge])
-//{
-//#ifdef _WIN32
-//    const char* cs = s.c_str();
-//    MultiByteToWideChar(CP_OEMCP        //UINT CodePage
-//                        ,MB_PRECOMPOSED //DWORD dwFlags
-//                        ,cs             //LPCSTR lpMultiByteStr
-//                        ,-1             //int cbMultiByte
-//                        ,ws             //LPWSTR lpWideCharStr
-//                        ,max_stringlaenge);          //int cchWideChar
-//#else
-//    unsigned i = 0;
-//    for(std::string::const_iterator it=s.begin(); it!=s.end(); ++it)
-//    {
-//        if(i > max_stringlaenge)
-//            return;
-//        ws[i] = *it;
-//    }
-//#endif
-//}
-
-//void OperatingSystem::privat::QStringToWCHAR(const QString& s, WCHAR ws[max_stringlaenge])
 void OperatingSystem::privat::QStringToWCHAR(const QString& s, WCHAR ws[], int ws_length)
 {
     if(ws_length <= 0)
@@ -158,21 +102,6 @@ void OperatingSystem::privat::QStringToWCHAR(const QString& s, WCHAR ws[], int w
 //#endif
 //}
 //
-///***************************************************************/
-//// Aus einem TCHAR-String einen String machen
-///***************************************************************/
-//std::string OperatingSystem::privat::TCHARToString(TCHAR* tc)
-//{
-//#ifdef _WIN32
-//#ifdef UNICODE
-//    return WCHARToString(tc);
-//#else
-//    return std::string(tc);
-//#endif
-//#else
-//    return std::string(tc);
-//#endif
-//}
 
 void OperatingSystem::privat::throwError(DWORD errorid)
 {
@@ -245,13 +174,6 @@ bool OperatingSystem::get_user(QString& Name, QString& Domain)
 
     if(OpenProcessToken(GetCurrentProcess(), TOKEN_ALL_ACCESS, &hProcessToken))
     {
-//        BOOL WINAPI GetTokenInformation(
-//          __in       HANDLE TokenHandle,
-//          __in       TOKEN_INFORMATION_CLASS TokenInformationClass,
-//          __out_opt  LPVOID TokenInformation,
-//          __in       DWORD TokenInformationLength,
-//          __out      PDWORD ReturnLength
-//        );
         GetTokenInformation(hProcessToken, TokenUser, NULL, 0, &dwLen);
 
         if((dwLen) && (NULL != (ptu = (TOKEN_USER*)HeapAlloc(GetProcessHeap(), 0, dwLen))))
@@ -519,17 +441,18 @@ bool OperatingSystem::prozess_starten_als(const QString& Benutzername, const QSt
                                , wCommandLine, CREATE_NEW_CONSOLE, NULL, wWorkingPath
                                , &si, &pi))
     {
-        QString errorText = "Problem starting a process: ";
-        errorText.append(errorMessage(GetLastError()));
-        errorText.append(" Username: \"" + QString::fromWCharArray(wBenutzername) + "\"");
-        errorText.append(" Domain: \"" + QString::fromWCharArray(wDomain) + "\"");
-        errorText.append(" Password: \"" + QString::fromWCharArray(wPasswort) + "\"");
-        errorText.append(" Filename: \"" + QString::fromWCharArray(wApplicationName) + "\"");
-        errorText.append(" Path: \"" + QString::fromWCharArray(wWorkingPath) + "\"");
-        errorText.append(" Kommandozeile: \"" + QString::fromWCharArray(wCommandLine) + "\"");
-//        throw OSError(errorText);
-//        fehlermeldung(ss.str(),"Fehler");
-        cDEBUG(errorText.toLocal8Bit().constData());
+        QString errormsg = errorMessage(GetLastError());
+        cON_DEBUG(
+            QString errorText = "CreateProcessWithLogonW failed: " + errormsg;
+            errorText.append(" Username: \"" + QString::fromWCharArray(wBenutzername) + "\"");
+            errorText.append(" Domain: \"" + QString::fromWCharArray(wDomain) + "\"");
+            errorText.append(" Password: \"" + QString::fromWCharArray(wPasswort) + "\"");
+            errorText.append(" Filename: \"" + QString::fromWCharArray(wApplicationName) + "\"");
+            errorText.append(" Path: \"" + QString::fromWCharArray(wWorkingPath) + "\"");
+            errorText.append(" Kommandozeile: \"" + QString::fromWCharArray(wCommandLine) + "\"");
+            cDEBUG(errorText.toLocal8Bit().constData());
+        )
+        throw OSError(QObject::tr("Starting a process failed."), errormsg);
         returnvalue = false;
     }
 

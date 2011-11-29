@@ -2,31 +2,37 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="AdminCenter.pro" open="0" top="0" tabpos="7">
-		<Cursor position="371" topLine="0" />
+		<Cursor position="1206" topLine="3" />
 	</File>
-	<File name="BackButton.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="122" topLine="0" />
+	<File name="Application.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="3042" topLine="74" />
 	</File>
-	<File name="BackButton.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="208" topLine="0" />
+	<File name="BackButton.cpp" open="0" top="0" tabpos="9">
+		<Cursor position="379" topLine="0" />
+	</File>
+	<File name="BackButton.hpp" open="0" top="0" tabpos="6">
+		<Cursor position="48" topLine="0" />
 	</File>
 	<File name="BaseException.hpp" open="0" top="0" tabpos="3">
 		<Cursor position="1178" topLine="18" />
 	</File>
 	<File name="EmptyButton.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="685" topLine="13" />
+		<Cursor position="781" topLine="20" />
 	</File>
 	<File name="EmptyButton.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="369" topLine="0" />
+		<Cursor position="300" topLine="0" />
 	</File>
 	<File name="Entry.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="163" topLine="0" />
+		<Cursor position="57" topLine="0" />
 	</File>
 	<File name="EntryApplication.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1237" topLine="21" />
+		<Cursor position="350" topLine="4" />
 	</File>
 	<File name="EntryApplication.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="565" topLine="0" />
+		<Cursor position="58" topLine="0" />
+	</File>
+	<File name="EntryReload.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="352" topLine="0" />
 	</File>
 	<File name="EntrySubmenu.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="721" topLine="6" />
@@ -40,47 +46,53 @@
 	<File name="LoginDialog.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="518" topLine="0" />
 	</File>
-	<File name="MenuButton.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="353" topLine="0" />
+	<File name="MenuButton.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="167" topLine="0" />
 	</File>
 	<File name="MenuButton.hpp" open="0" top="0" tabpos="4">
-		<Cursor position="330" topLine="0" />
+		<Cursor position="316" topLine="0" />
 	</File>
-	<File name="MenuDialog.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1749" topLine="46" />
+	<File name="MenuDialog.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="738" topLine="56" />
 	</File>
-	<File name="MenuDialog.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="300" topLine="0" />
+	<File name="MenuDialog.hpp" open="0" top="0" tabpos="6">
+		<Cursor position="152" topLine="0" />
 	</File>
-	<File name="MenuPresenter.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1755" topLine="19" />
+	<File name="MenuPresenter.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1143" topLine="35" />
 	</File>
 	<File name="MenuPresenter.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="121" topLine="0" />
+		<Cursor position="527" topLine="0" />
 	</File>
 	<File name="Menulist.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1526" topLine="45" />
+		<Cursor position="738" topLine="18" />
 	</File>
 	<File name="Menulist.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="681" topLine="12" />
+		<Cursor position="652" topLine="8" />
 	</File>
-	<File name="OperatingSystem.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="17537" topLine="483" />
+	<File name="OperatingSystem.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="9030" topLine="296" />
 	</File>
-	<File name="OperatingSystem.hpp" open="1" top="0" tabpos="3">
-		<Cursor position="266" topLine="60" />
+	<File name="OperatingSystem.hpp" open="0" top="0" tabpos="3">
+		<Cursor position="266" topLine="48" />
 	</File>
-	<File name="Settings.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="848" topLine="33" />
+	<File name="ReloadButton.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="231" topLine="0" />
+	</File>
+	<File name="ReloadButton.hpp" open="1" top="0" tabpos="5">
+		<Cursor position="177" topLine="0" />
+	</File>
+	<File name="Settings.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="848" topLine="44" />
 	</File>
 	<File name="Settings.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="478" topLine="13" />
+		<Cursor position="135" topLine="0" />
 	</File>
-	<File name="SettingsParser.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="2297" topLine="55" />
+	<File name="SettingsParser.cpp" open="1" top="1" tabpos="6">
+		<Cursor position="1711" topLine="33" />
 	</File>
 	<File name="SettingsParser.hpp" open="0" top="0" tabpos="1">
-		<Cursor position="860" topLine="3" />
+		<Cursor position="748" topLine="0" />
 	</File>
 	<File name="auxiliaries.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="2435" topLine="66" />
@@ -91,8 +103,8 @@
 	<File name="debug.h" open="0" top="0" tabpos="0">
 		<Cursor position="119" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1413" topLine="45" />
+	<File name="main.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="28" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="544" topLine="0" />
@@ -101,6 +113,6 @@
 		<Cursor position="0" topLine="54" />
 	</File>
 	<File name="xmlsp\xmlsp.h" open="0" top="0" tabpos="0">
-		<Cursor position="3830" topLine="114" />
+		<Cursor position="4165" topLine="68" />
 	</File>
 </CodeBlocks_layout_file>

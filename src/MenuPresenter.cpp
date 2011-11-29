@@ -1,5 +1,6 @@
 #include "MenuPresenter.hpp"
 #include "MenuButton.hpp"
+#include "ReloadButton.hpp"
 #include "BackButton.hpp"
 #include "EmptyButton.hpp"
 
@@ -12,7 +13,8 @@
 #include <QStringList>
 
 MenuPresenter::MenuPresenter()
-    :   _menuDialog(new MenuDialog()),
+    :   _exitStatus(exitStatusSuccess),
+        _menuDialog(new MenuDialog()),
         _lists()
 {
 }
@@ -32,6 +34,8 @@ void MenuPresenter::updateList(Menulist* ml)
 {
     Q_ASSERT(ml);
 
+    _exitStatus = exitStatusFailed;
+
     // Ensure there are not too many entries.
     unsigned len = ml->get_menuelaenge();
     if(len > 9)
@@ -44,8 +48,14 @@ void MenuPresenter::updateList(Menulist* ml)
     for(unsigned i=0; i!=len; ++i)
     {
         Entry* me = ml->get_menueeintrag(i);
-        MenuButton* pb = new MenuButton(me, i+1);
-        _menuDialog->setButton(i+1, pb);
+        if(me->type() == "EntryReload")
+        {
+            ReloadButton* pb = new ReloadButton(i+1, QIcon(me->icon()),me->titel());
+            _menuDialog->setButton(i+1, pb);
+        }else{
+            MenuButton* pb = new MenuButton(me, i+1);
+            _menuDialog->setButton(i+1, pb);
+        }
     }
 
     // Fill with inactive empty buttons
@@ -71,6 +81,8 @@ void MenuPresenter::updateList(Menulist* ml)
 
     // Change the window title
     _menuDialog->setTitle(ml->titel());
+
+    _exitStatus = exitStatusSuccess;
 }
 
 void MenuPresenter::showDialog()
@@ -90,4 +102,14 @@ void MenuPresenter::stepBack()
         _lists.pop();
         updateList(ml);
     }
+}
+
+void MenuPresenter::quit()
+{
+    _menuDialog->accept();
+}
+
+void MenuPresenter::announceReload()
+{
+    _exitStatus = exitStatusRestart;
 }

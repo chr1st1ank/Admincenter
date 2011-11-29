@@ -15,12 +15,17 @@ class MenuPresenter
         ~MenuPresenter();
 
     public:
+        enum exitStatus{ exitStatusSuccess, exitStatusRestart, exitStatusFailed };
+
         static MenuPresenter* instance();
         void updateList(Menulist* ml);
         void showDialog();
         void stepBack();
-
+        void MenuPresenter::quit();
+        void announceReload();
+        exitStatus status() { return _exitStatus; };
     private:
+        exitStatus _exitStatus;
         MenuDialog* _menuDialog;
         std::stack<Menulist*> _lists;
 };

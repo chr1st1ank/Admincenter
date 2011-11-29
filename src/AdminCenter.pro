@@ -31,8 +31,8 @@ CONFIG(debug) {
 }
 
 # Input
-HEADERS += LoginDialog.hpp MenuDialog.hpp EntrySubmenu.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h
+HEADERS += Application.hpp LoginDialog.hpp MenuDialog.hpp EntrySubmenu.hpp EntryReload.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp ReloadButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h
 FORMS += designer/LoginDialog.ui
-SOURCES += LoginDialog.cpp main.cpp MenuDialog.cpp EntrySubmenu.cpp MenuPresenter.cpp MenuButton.cpp BackButton.cpp EmptyButton.cpp auxiliaries.cpp EntryApplication.cpp Menulist.cpp OperatingSystem.cpp Settings.cpp SettingsParser.cpp xmlsp/xmlsp.cpp
+SOURCES += Application.cpp LoginDialog.cpp main.cpp MenuDialog.cpp EntrySubmenu.cpp EntryReload.cpp MenuPresenter.cpp MenuButton.cpp BackButton.cpp ReloadButton.cpp EmptyButton.cpp auxiliaries.cpp EntryApplication.cpp Menulist.cpp OperatingSystem.cpp Settings.cpp SettingsParser.cpp xmlsp/xmlsp.cpp
 RC_FILE = appicon.rc
 
