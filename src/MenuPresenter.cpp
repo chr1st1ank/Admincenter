@@ -71,7 +71,7 @@ void MenuPresenter::pushList(Menulist* ml)
     QAbstractButton* backbutton;
     if(_lists.empty())
     {
-        backbutton = new BackButton(QIcon(QString("icons/quit.png")), QString(QString::fromUtf8("Beenden")));
+        backbutton = new BackButton(QIcon(QString("icons/exit.png")), QString(QString::fromUtf8("Beenden")));
     }else{
         backbutton = new BackButton(QIcon(QString("icons/back.png")), QString(QString::fromUtf8("Zurück")));
     }

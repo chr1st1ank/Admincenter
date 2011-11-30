@@ -1,5 +1,6 @@
 #include "MenuDialog.hpp"
 #include "Application.hpp"
+#include "InfoDialog.hpp"
 
 #include "auxiliaries.hpp"
 #include "debug.h"
@@ -15,7 +16,6 @@
 #include <QAction>
 #include <QToolBar>
 #include <QStatusBar>
-#include <QMessageBox>
 #include <QDebug>
 
 MenuDialog::MenuDialog()
@@ -52,14 +52,15 @@ MenuDialog::MenuDialog()
     QToolBar* qtb = new QToolBar("toolbar",this);
     qtb->setMovable(false);
     qtb->setFloatable(false);
+    qtb->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     addToolBar(Qt::TopToolBarArea,qtb);
 
-    QAction* reloadAction = new QAction(tr("&Reload..."), this);
+    QAction* reloadAction = new QAction(QIcon("icons/reload.png"), tr("&Reload..."), this);
     reloadAction->setStatusTip(tr("Reload the configuration file"));
     connect(reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
     qtb->addAction(reloadAction);
 
-    QAction* showInfoAction = new QAction(tr("&Info..."), this);
+    QAction* showInfoAction = new QAction(QIcon("icons/info.png"), tr("&Info..."), this);
     showInfoAction->setStatusTip(tr("Show informations about this application"));
     connect(showInfoAction, SIGNAL(triggered()), this, SLOT(showInfo()));
     qtb->addAction(showInfoAction);
@@ -121,9 +122,6 @@ void MenuDialog::reload()
 
 void MenuDialog::showInfo()
 {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle(QObject::tr("Admincenter"));
-    msgBox.setText("Many informations about this application...");
-    msgBox.setInformativeText("More and more informations.");
-    msgBox.exec();
+    InfoDialog infodlg;
+    infodlg.exec();
 }

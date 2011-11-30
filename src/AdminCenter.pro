@@ -8,6 +8,7 @@ DEPENDPATH += . designer
 win32{
 #INCLUDEPATH += . ../../../boost_1_40_0 T:/programmierung/boost_1_40_0
 LIBS += C:/Programme/CodeBlocks/MinGW/lib/libwininet.a
+LIBS += C:/MinGW/lib/gcc/mingw32/3.4.2/libgcc.a
 }unix{
 }
 UI_DIR += designer
@@ -31,8 +32,8 @@ CONFIG(debug) {
 }
 
 # Input
-HEADERS += Application.hpp LoginDialog.hpp MenuDialog.hpp EntrySubmenu.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h
+HEADERS += Application.hpp LoginDialog.hpp MenuDialog.hpp InfoDialog.hpp EntrySubmenu.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h
 FORMS += designer/LoginDialog.ui
-SOURCES += Application.cpp LoginDialog.cpp main.cpp MenuDialog.cpp EntrySubmenu.cpp MenuPresenter.cpp MenuButton.cpp BackButton.cpp EmptyButton.cpp auxiliaries.cpp EntryApplication.cpp Menulist.cpp OperatingSystem.cpp Settings.cpp SettingsParser.cpp xmlsp/xmlsp.cpp
+SOURCES += Application.cpp LoginDialog.cpp main.cpp MenuDialog.cpp InfoDialog.cpp EntrySubmenu.cpp MenuPresenter.cpp MenuButton.cpp BackButton.cpp EmptyButton.cpp auxiliaries.cpp EntryApplication.cpp Menulist.cpp OperatingSystem.cpp Settings.cpp SettingsParser.cpp xmlsp/xmlsp.cpp
 RC_FILE = appicon.rc
 

@@ -23,7 +23,7 @@ LoginDialog::LoginDialog(const QString& defaultUser, QWidget* parent) : QDialog(
     pb->setIcon(QIcon("icons/ok.png"));
     pb = buttonBox->button(QDialogButtonBox::Close);
     Q_ASSERT(pb);
-    pb->setIcon(QIcon("icons/quit.png"));
+    pb->setIcon(QIcon("icons/exit.png"));
 
     // Setup the user list and its shortcuts
     QShortcut* sc;

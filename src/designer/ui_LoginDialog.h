@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'LoginDialog.ui'
 **
-** Created: Tue 29. Nov 17:06:30 2011
+** Created: Wed 30. Nov 11:14:12 2011
 **      by: Qt User Interface Compiler version 4.5.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!

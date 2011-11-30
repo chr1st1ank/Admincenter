@@ -3,12 +3,11 @@ INPUT(
 ./..\tmp\release\LoginDialog.o
 ./..\tmp\release\main.o
 ./..\tmp\release\MenuDialog.o
+./..\tmp\release\InfoDialog.o
 ./..\tmp\release\EntrySubmenu.o
-./..\tmp\release\EntryReload.o
 ./..\tmp\release\MenuPresenter.o
 ./..\tmp\release\MenuButton.o
 ./..\tmp\release\BackButton.o
-./..\tmp\release\ReloadButton.o
 ./..\tmp\release\EmptyButton.o
 ./..\tmp\release\auxiliaries.o
 ./..\tmp\release\EntryApplication.o
@@ -18,7 +17,7 @@ INPUT(
 ./..\tmp\release\SettingsParser.o
 ./..\tmp\release\xmlsp.o
 ./..\tmp\release\moc_LoginDialog.o
+./..\tmp\release\moc_MenuDialog.o
 ./..\tmp\release\moc_MenuButton.o
 ./..\tmp\release\moc_BackButton.o
-./..\tmp\release\moc_ReloadButton.o
 );
