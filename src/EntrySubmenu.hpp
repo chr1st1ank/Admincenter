@@ -5,6 +5,7 @@
 #include "Menulist.hpp"
 
 #include <QString>
+#include <QDebug>
 
 class EntrySubmenu : public Entry
 {
@@ -13,6 +14,7 @@ class EntrySubmenu : public Entry
             const QString& titel,
             Menulist* liste
         );
+        ~EntrySubmenu() {qDebug() << "Deleting EntrySubmenu";};
         virtual void execute();
         virtual QString type() const {return "EntrySubmenu";};
 //        virtual QString string();

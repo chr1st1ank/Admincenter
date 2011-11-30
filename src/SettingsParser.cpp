@@ -3,7 +3,6 @@
 #include "Entry.hpp"
 #include "EntrySubmenu.hpp"
 #include "EntryApplication.hpp"
-#include "EntryReload.hpp"
 
 #include <stdexcept>
 #include <iostream>
@@ -43,23 +42,6 @@ bool SettingsParser::on_tag_open(std::string tag_name, XMLSP::StringMap& attribu
                 titel = QString::fromLocal8Bit(i->second.c_str());
         }
         listenstack.push(new Menulist(titel));
-    }
-    else if (tag_name == "Reload")
-    {
-        QString titel = "";
-        QString icon = "";
-        for (XMLSP::StringMap::const_iterator i = attributes.begin();
-                i != attributes.end(); i++)
-        {
-            if (i->first == "titel"){
-                titel = QString::fromLocal8Bit(i->second.c_str());
-            }else if (i->first == "icon"){
-                icon = QString::fromLocal8Bit(i->second.c_str());
-            }
-        }
-        listenstack.top()->add_menueeintrag(new EntryReload(
-                                                titel, icon
-                                            ));
     }
 //    else if (listenstack.empty())
 //    {

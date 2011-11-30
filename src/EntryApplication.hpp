@@ -5,7 +5,7 @@
 #include "Menulist.hpp"
 
 #include <QString>
-
+#include <QDebug>
 
 class EntryApplication : public Entry
 {
@@ -18,6 +18,7 @@ class EntryApplication : public Entry
             const QString& pfad,
             bool unsichtbar = false
         );
+        ~EntryApplication() {qDebug() << "Deleting EntryApplication";};
         virtual void execute();
         virtual QString type() const {return "EntryApplication";};
 //        virtual QString string();

@@ -21,7 +21,7 @@ EntrySubmenu::EntrySubmenu(
 
 void EntrySubmenu::execute()
 {
-    MenuPresenter::instance()->updateList(_menueliste);
+    MenuPresenter::instance()->pushList(_menueliste);
 }
 
 //QString EntrySubmenu::string()

@@ -24,6 +24,7 @@ MenuButton::MenuButton(Entry* menueeintrag, int number, QWidget* parent)
 
 MenuButton::~MenuButton()
 {
+    qDebug() << "Deleting MenuButton";
 }
 
 void MenuButton::execute()

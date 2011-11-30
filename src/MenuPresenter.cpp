@@ -1,11 +1,9 @@
 #include "MenuPresenter.hpp"
 #include "MenuButton.hpp"
-#include "ReloadButton.hpp"
 #include "BackButton.hpp"
 #include "EmptyButton.hpp"
 
 #include "Entry.hpp"
-//#include "menueeintraege.hpp"
 #include "debug.h"
 
 #include <QDebug>
@@ -13,14 +11,14 @@
 #include <QStringList>
 
 MenuPresenter::MenuPresenter()
-    :   _exitStatus(exitStatusSuccess),
-        _menuDialog(new MenuDialog()),
+    :   _menuDialog(new MenuDialog()),
         _lists()
 {
 }
 
 MenuPresenter::~MenuPresenter()
 {
+    qDebug() << "Deleting MenuPresenter";
     delete _menuDialog;
 }
 
@@ -30,11 +28,20 @@ MenuPresenter* MenuPresenter::instance()
     return &_instance;
 }
 
-void MenuPresenter::updateList(Menulist* ml)
+void MenuPresenter::setList(Menulist* ml)
 {
     Q_ASSERT(ml);
 
-    _exitStatus = exitStatusFailed;
+    while(!_lists.empty())
+    {
+        _lists.pop();
+    }
+    pushList(ml);
+}
+
+void MenuPresenter::pushList(Menulist* ml)
+{
+    Q_ASSERT(ml);
 
     // Ensure there are not too many entries.
     unsigned len = ml->get_menuelaenge();
@@ -48,17 +55,11 @@ void MenuPresenter::updateList(Menulist* ml)
     for(unsigned i=0; i!=len; ++i)
     {
         Entry* me = ml->get_menueeintrag(i);
-        if(me->type() == "EntryReload")
-        {
-            ReloadButton* pb = new ReloadButton(i+1, QIcon(me->icon()),me->titel());
-            _menuDialog->setButton(i+1, pb);
-        }else{
-            MenuButton* pb = new MenuButton(me, i+1);
-            _menuDialog->setButton(i+1, pb);
-        }
+        MenuButton* pb = new MenuButton(me, i+1);
+        _menuDialog->setButton(i+1, pb);
     }
 
-    // Fill with inactive empty buttons
+    // Fill the remaining fields with inactive empty buttons
     for(unsigned i=len; i!=9; ++i)
     {
         EmptyButton* eb = new EmptyButton(i+1);
@@ -81,8 +82,6 @@ void MenuPresenter::updateList(Menulist* ml)
 
     // Change the window title
     _menuDialog->setTitle(ml->titel());
-
-    _exitStatus = exitStatusSuccess;
 }
 
 void MenuPresenter::showDialog()
@@ -96,20 +95,15 @@ void MenuPresenter::stepBack()
     _lists.pop();
     if(_lists.empty())
     {
-        _menuDialog->accept();
+        _menuDialog->quit();
     }else{
         Menulist* ml = _lists.top();
         _lists.pop();
-        updateList(ml);
+        pushList(ml);
     }
 }
 
 void MenuPresenter::quit()
 {
-    _menuDialog->accept();
-}
-
-void MenuPresenter::announceReload()
-{
-    _exitStatus = exitStatusRestart;
+    _menuDialog->quit();
 }

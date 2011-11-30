@@ -6,6 +6,7 @@
 
 #include <string>
 #include <QString>
+#include <QDebug>
 
 class Settings
 {
@@ -14,6 +15,8 @@ public:
     ///
     /// \param filename the file to load the settings from
     Settings(QString filename);
+
+    ~Settings() {qDebug() << "Deleting Settings";};
 
     /// Save the settings to a given file
     ///

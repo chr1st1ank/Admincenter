@@ -6,6 +6,7 @@
 #include <QDialog>
 #include <QWidget>
 #include <QString>
+#include <QDebug>
 
 class LoginDialog : public QDialog, public Ui::LoginDialog
 {
@@ -13,6 +14,7 @@ class LoginDialog : public QDialog, public Ui::LoginDialog
 
     public:
         LoginDialog(const QString& defaultUser="", QWidget* parent = 0);
+        ~LoginDialog() {qDebug() << "Deleting LoginDialog";};
 
         QString Name;
         QString Domain;

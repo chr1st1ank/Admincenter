@@ -9,6 +9,7 @@ class BackButton : public EmptyButton
 
     public:
         BackButton(const QIcon& icon, const QString& text, QWidget* parent = 0);
+        ~BackButton();
 
     public slots:
         void execute();

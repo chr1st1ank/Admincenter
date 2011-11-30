@@ -1,6 +1,7 @@
 #include "EmptyButton.hpp"
 
 #include <QSize>
+#include <QDebug>
 
 const int emptyButton_x = 135;
 const int emptyButton_y = 80;
@@ -24,6 +25,10 @@ EmptyButton::EmptyButton(int number, QWidget* parent)
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 }
 
+EmptyButton::~EmptyButton()
+{
+    qDebug() << "Deleting EmptyButton";
+}
 
 QString EmptyButton::prepareButtonText(int number, const QString& text)
 {

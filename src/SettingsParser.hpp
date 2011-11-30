@@ -5,13 +5,14 @@
 
 #include "xmlsp/xmlsp.h"
 #include <QString>
+#include <QDebug>
 #include <string>
 #include <stack>
 
 class SettingsParser: public XMLSP::Parser
 {
 public:
-    virtual ~SettingsParser() {};
+    virtual ~SettingsParser() {qDebug() << "Deleting SettingsParser";};
 
     virtual bool on_tag_open(std::string tag_name, XMLSP::StringMap& attributes);
     virtual bool on_cdata(std::string cdata);

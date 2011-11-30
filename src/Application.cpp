@@ -13,6 +13,8 @@
 #include <QString>
 #include <QMessageBox>
 
+Application* Application::_instance = 0;
+
 Application::Application(int argc, char* argv[]) : QApplication(argc, argv)
 {
     // Loging in or starting main program?
@@ -32,6 +34,19 @@ Application::Application(int argc, char* argv[]) : QApplication(argc, argv)
                 _configFilename = QString(argv[i]);
         }
     }
+    _instance = this;
+}
+
+Application::~Application()
+{
+    qDebug() << "Deleting Application";
+}
+
+Application* Application::instance()
+{
+//    static MenuPresenter _instance;
+    Q_ASSERT(_instance);
+    return _instance;
 }
 
 int Application::run()
@@ -64,8 +79,6 @@ int Application::run()
                     msgBox.setWindowTitle(QObject::tr("Error Starting Main Process"));
                     msgBox.setText(err.shortDescription());
                     msgBox.setInformativeText(err.detailedDescription());
-//                    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-//                    msgBox.setDefaultButton(QMessageBox::Save);
                     msgBox.exec();
                 }
                 // Failed, so try again
@@ -82,28 +95,29 @@ int Application::run()
             cDEBUG("Create menu");
             MenuPresenter* mp = MenuPresenter::instance();
 
-            int returnCode = 0;
-            do
-            {
-                // Read settings
-                cDEBUG(("Read settings from " + _configFilename).toLocal8Bit().constData());
-                Settings s(_configFilename);
+            // Read settings
+            cDEBUG(("Read settings from " + _configFilename).toLocal8Bit().constData());
+            Settings s(_configFilename);
 
-                // Prepare and run the dialog
-                cDEBUG("Update menu");
-                mp->updateList(s.hauptmenue());
-                cDEBUG("Show menu");
-                mp->showDialog();
+            // Prepare and run the dialog
+            cDEBUG("Update menu");
+            mp->setList(s.hauptmenue());
+            cDEBUG("Show menu");
+            mp->showDialog();
 
-                returnCode = exec();
-            }while(mp->status() == MenuPresenter::exitStatusRestart);
-
-            cDEBUG("finished with retcode " << returnCode);
-            return returnCode;
+            return exec();
         }
     }catch(const Settings::FileIOError& ex){
         cDEBUG(ex.what());
         return -97;
     }
     return -99;
+}
+
+void Application::reloadConfiguration()
+{
+    cDEBUG(("Read settings from " + _configFilename).toLocal8Bit().constData());
+    Settings s(_configFilename);
+    cDEBUG("Update menu");
+    MenuPresenter::instance()->setList(s.hauptmenue());
 }

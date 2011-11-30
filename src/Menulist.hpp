@@ -3,8 +3,8 @@
 
 #include "Entry.hpp"
 
-//#include <string>
 #include <vector>
+#include <QDebug>
 
 //typedef Entry::Entry me;
 typedef Entry me;
@@ -13,6 +13,7 @@ class Menulist
     public:
         Menulist(const QString& _titel);
 //        Menulist(const std::string& _titel, std::vector<Entry> liste);
+        ~Menulist() {qDebug() << "Deleting Menulist";};
 
         QString titel();
         std::vector<QString> titelliste();

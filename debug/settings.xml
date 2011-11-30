@@ -156,6 +156,5 @@ By default, the parser supports the following entities: &lt; &gt; &amp; &apos;
 				  programmname="openvpn-gui.exe" 
 				  pfad="C:\Programme\OpenVPN\bin"/>   
 	</Untermenue>   
-    <Reload titel="Neu laden" />
 </Hauptmenue>
 <Benutzer name="Master"/>

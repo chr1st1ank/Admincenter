@@ -1,4 +1,5 @@
 #include "MenuDialog.hpp"
+#include "Application.hpp"
 
 #include "auxiliaries.hpp"
 #include "debug.h"
@@ -11,10 +12,15 @@
 #include <QKeySequence>
 #include <QIcon>
 #include <QLabel>
+#include <QAction>
+#include <QToolBar>
+#include <QStatusBar>
+#include <QMessageBox>
 #include <QDebug>
 
 MenuDialog::MenuDialog()
-    :   QDialog(0,  Qt::WindowFlags(Qt::Dialog | Qt::WindowMinimizeButtonHint)),
+//    :   QDialog(0,  Qt::WindowFlags(Qt::Dialog | Qt::WindowMinimizeButtonHint)),
+    :   QMainWindow(0,  Qt::WindowFlags(Qt::Dialog | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::WindowSystemMenuHint)),
         _buttons(),
         _shortcuts(),
         _layout(new QGridLayout)
@@ -38,19 +44,33 @@ MenuDialog::MenuDialog()
         pb->setDisabled(true);
     }
     _layout->addWidget(_buttons[0], 3, 1);
+
+    QWidget* cw = new QWidget(this);
+    cw->setLayout(_layout);
+    setCentralWidget(cw);
+
+    QToolBar* qtb = new QToolBar("toolbar",this);
+    qtb->setMovable(false);
+    qtb->setFloatable(false);
+    addToolBar(Qt::TopToolBarArea,qtb);
+
+    QAction* reloadAction = new QAction(tr("&Reload..."), this);
+    reloadAction->setStatusTip(tr("Reload the configuration file"));
+    connect(reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
+    qtb->addAction(reloadAction);
+
+    QAction* showInfoAction = new QAction(tr("&Info..."), this);
+    showInfoAction->setStatusTip(tr("Show informations about this application"));
+    connect(showInfoAction, SIGNAL(triggered()), this, SLOT(showInfo()));
+    qtb->addAction(showInfoAction);
+
     QLabel* versionLabel = new QLabel(
         "Version " + QString::fromLocal8Bit(AutoVersion::FULLVERSION_STRING) +
         " - Build " + QString::number(AutoVersion::BUILDS_COUNT),this);
-    _layout->addWidget(versionLabel, 4, 0, 1, 2);
-    QPushButton* infoButton = new QPushButton("Info", this);
-    _layout->addWidget(infoButton, 4, 2, Qt::AlignRight);
-//    for(int i=0; i!=3; ++i)
-//    {
-//        _layout->setRowMinimumHeight(i, 100);
-//        _layout->setColumnMinimumWidth(i, 100);
-//    }
-//    _layout->setRowMinimumHeight(3, 100);
-    setLayout(_layout);
+    QStatusBar* sb = new QStatusBar(this);
+    sb->addWidget(versionLabel);
+    setStatusBar(sb);
+
     setTitle();
 }
 
@@ -87,4 +107,23 @@ void MenuDialog::setTitle(const QString& title)
         setWindowTitle("Admincenter");
     else
         setWindowTitle("Admincenter - " + title);
+}
+
+void MenuDialog::quit()
+{
+    close();
+}
+
+void MenuDialog::reload()
+{
+    Application::instance()->reloadConfiguration();
+}
+
+void MenuDialog::showInfo()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(QObject::tr("Admincenter"));
+    msgBox.setText("Many informations about this application...");
+    msgBox.setInformativeText("More and more informations.");
+    msgBox.exec();
 }

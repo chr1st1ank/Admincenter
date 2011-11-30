@@ -2,8 +2,9 @@
 #define MENUBUTTON_HPP
 
 #include "EmptyButton.hpp"
-
 #include "Entry.hpp"
+
+#include <QDebug>
 
 class MenuButton : public EmptyButton
 {

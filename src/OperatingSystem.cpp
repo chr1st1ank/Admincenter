@@ -329,10 +329,10 @@ void OperatingSystem::programm_starten(const QString& sfilename
 #else
     ostringstream ss;
     ss << "Starten des Programms:" << std::endl;
-    ss << "Dateiname: \"" << sdateiname.toLocal8Bit().constData() << "\"" << std::endl;
-    ss << "Pfad: \"" << spfad.toLocal8Bit().constData() << "\"" << std::endl;
-    ss << "Parameter: \"" << sparameter.toLocal8Bit().constData() << "\"" << std::endl;
-    ss << "Invisible: \"" << (invisible ? "True" : "False") << "\"" << std::endl;
+//    ss << "Dateiname: \"" << sfilename.toLocal8Bit().constData() << "\"" << std::endl;
+//    ss << "Pfad: \"" << spfad.toLocal8Bit().constData() << "\"" << std::endl;
+//    ss << "Parameter: \"" << sparameter.toLocal8Bit().constData() << "\"" << std::endl;
+//    ss << "Invisible: \"" << (invisible ? "True" : "False") << "\"" << std::endl;
     cDEBUG(ss.str());
 #endif
 }
