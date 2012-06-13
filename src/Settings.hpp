@@ -26,8 +26,11 @@ public:
     /// Get the main menu as it is saved in the settings
     Menulist* hauptmenue();
 
-    /// Get the username saved in the settings
-    const QString& user();
+    /// Get the default username saved in the settings
+    const QString& user() const;
+
+    /// Get the path of the default text editor saved in the settings
+    const QString& textEditor() const;
 
     /// Exception used on problems opening or writing files
     DECLARE_EXCEPTION(FileIOError);
@@ -40,6 +43,7 @@ private:
 
     Menulist* _hauptmenue;
     QString _user;
+    QString _textEditor;
 };
 
 #endif

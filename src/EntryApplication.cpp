@@ -3,11 +3,13 @@
 #include "EntryApplication.hpp"
 #include "OperatingSystem.hpp"
 #include "auxiliaries.hpp"
+#include "debug.h"
 
 //#include <string>
 #include <sstream>
 #include <vector>
 #include <QString>
+#include <QMessageBox>
 
 using std::vector;
 using namespace std;
@@ -32,7 +34,15 @@ EntryApplication::EntryApplication(
 }
 void EntryApplication::execute()
 {
-    OperatingSystem::programm_starten(_programmname,_parameter,_pfad,_unsichtbar);
+    try{
+        cDEBUG("Starte " << _programmname.toLocal8Bit().constData());
+        OperatingSystem::programm_starten(_programmname,_parameter,_pfad,_unsichtbar);
+        cDEBUG("Beende " << _programmname.toLocal8Bit().constData());
+    }catch(const OperatingSystem::OSError& ex){
+        QMessageBox::warning(NULL, QObject::tr("Error"), ex.detailedDescription());
+    }catch(const std::exception& ex){
+        QMessageBox::warning(NULL, QObject::tr("Error"), ex.what());
+    }
 }
 //QString EntryApplication::string()
 //{

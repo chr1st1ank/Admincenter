@@ -1,6 +1,7 @@
 #include "MenuDialog.hpp"
 #include "Application.hpp"
 #include "InfoDialog.hpp"
+#include "OperatingSystem.hpp"
 
 #include "auxiliaries.hpp"
 #include "debug.h"
@@ -54,6 +55,11 @@ MenuDialog::MenuDialog()
     qtb->setFloatable(false);
     qtb->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     addToolBar(Qt::TopToolBarArea,qtb);
+
+    QAction* editAction = new QAction(QIcon("icons/textedit.png"), tr("&Edit..."), this);
+    editAction->setStatusTip(tr("Edit the configuration file"));
+    connect(editAction, SIGNAL(triggered()), this, SLOT(editConfig()));
+    qtb->addAction(editAction);
 
     QAction* reloadAction = new QAction(QIcon("icons/reload.png"), tr("&Reload..."), this);
     reloadAction->setStatusTip(tr("Reload the configuration file"));
@@ -113,6 +119,11 @@ void MenuDialog::setTitle(const QString& title)
 void MenuDialog::quit()
 {
     close();
+}
+
+void MenuDialog::editConfig()
+{
+    OperatingSystem::programm_starten(Application::instance()->settings().textEditor(),Application::instance()->configFilename());
 }
 
 void MenuDialog::reload()

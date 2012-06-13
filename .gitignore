@@ -1,3 +1,7 @@
 # Ignore all temporary files created during build process
 tmp/**/*
 
+
+/tmp
+/src/object_script.Admincenter_debug.Debug
+/src/object_script.Admincenter_debug.Release

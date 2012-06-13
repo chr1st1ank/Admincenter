@@ -26,10 +26,12 @@ public:
 
     Menulist* get_liste();
     QString get_user();
+    QString get_textEditor();
 
 private:
     std::stack<Menulist*> listenstack;
     QString _user;
+    QString _textEditor;
 };
 
 #endif // SETTINGSPARSER_HPP_INCLUDED

@@ -1,6 +1,7 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 
+#include "Settings.hpp"
 #include <QApplication>
 
 class Application : private QApplication
@@ -11,9 +12,12 @@ class Application : private QApplication
         static Application* instance();
         int run();
         void reloadConfiguration();
+        const Settings& settings() const;
+        QString configFilename() const;
     protected:
     private:
         QString _configFilename;
+        Settings* _settings;
         bool _loginMode;
         static Application* _instance;
 };

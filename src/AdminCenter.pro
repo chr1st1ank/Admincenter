@@ -7,8 +7,8 @@ TARGET = Admincenter
 DEPENDPATH += . designer
 win32{
 #INCLUDEPATH += . ../../../boost_1_40_0 T:/programmierung/boost_1_40_0
-LIBS += C:/Programme/CodeBlocks/MinGW/lib/libwininet.a
-LIBS += C:/MinGW/lib/gcc/mingw32/3.4.2/libgcc.a
+#LIBS += C:/Programme/CodeBlocks/MinGW/lib/libwininet.a
+#LIBS += C:/MinGW/lib/gcc/mingw32/3.4.2/libgcc.a
 }unix{
 }
 UI_DIR += designer
@@ -17,19 +17,46 @@ UI_DIR += designer
 CONFIG += qt
 CONFIG += static
 
-CONFIG(debug) {
-	CONFIG += console
+debug {
+    #CONFIG += console
 	#CONFIG += warn_on
 	DESTDIR = ../debug
 	OBJECTS_DIR = ../tmp/debug
 	MOC_DIR = ../tmp/debug
 	DEFINES += DEBUG
+	message( "Debug mode!" )
 }else{
+    CONFIG -= console
 	DESTDIR = ../release
 	OBJECTS_DIR = ../tmp/release
 	MOC_DIR = ../tmp/release
-	CONFIG -= console
+	message( "Release mode!" )
 }
+
+
+#CONFIG(release, release|debug) {
+#MODE = release
+#}
+#CONFIG(debug, release|debug) {
+#MODE = debug
+#TARGET = $$join(TARGET,,,_debug)
+#}
+#contains(MODE, debug) {
+#    #CONFIG += console
+#	#CONFIG += warn_on
+#	DESTDIR = ../debug
+#	OBJECTS_DIR = ../tmp/debug
+#	MOC_DIR = ../tmp/debug
+#	DEFINES += DEBUG
+#	message( "Debug mode!" )
+#}
+#contains(MODE, release) {
+#    CONFIG -= console
+#	DESTDIR = ../release
+#	OBJECTS_DIR = ../tmp/release
+#	MOC_DIR = ../tmp/release
+#	message( "Release mode!" )
+#}
 
 # Input
 HEADERS += Application.hpp LoginDialog.hpp MenuDialog.hpp InfoDialog.hpp EntrySubmenu.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h

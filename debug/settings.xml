@@ -4,6 +4,7 @@
 <Programm titel="Konsole" programmname="cmd.exe" parameter="" pfad="" unsichtbar="false" />
 <Untermenue titel="Wartungsprogramme" />
 <Benutzer name="Master"/>
+<Texteditor path="C:\Programme\Notepad++\Notepad++.exe"/>
 
 XMLSP supports 1 byte entities in decimal and hex forms:
 	&#145;
@@ -15,10 +16,9 @@ By default, the parser supports the following entities: &lt; &gt; &amp; &apos;
 
 <Hauptmenue>
     <Programm titel="Windows Explorer in C:\"
-              programmname="ex.bat"
+              programmname="explorer.exe"
               parameter="c:"
-              pfad=".\subs\"
-              unsichtbar="true"
+              pfad="C:\Windows"
               icon="icons/file-manager.png"/>
     <Programm titel="Konsole"
               programmname="cmd.exe"
@@ -50,10 +50,9 @@ By default, the parser supports the following entities: &lt; &gt; &amp; &apos;
     </Untermenue>
     <Untermenue titel="Systemverwaltung">
         <Programm titel="Systemsteuerung"
-                  programmname="ex.bat"
-                  parameter="::{20D04FE0-3AEA-1069-A2D8-08002B30309D}\::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
-                  pfad=".\subs\"
-                  unsichtbar="true"/>
+			programmname="explorer.exe"
+			parameter="::{20D04FE0-3AEA-1069-A2D8-08002B30309D}\::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+			pfad="C:\Windows"/>
         <Programm titel="Registrierungseditor"
                   programmname="regedt32.exe"/>
         <Programm titel="Diensteverwaltung"
@@ -73,74 +72,20 @@ By default, the parser supports the following entities: &lt; &gt; &amp; &apos;
         <Programm titel="Interaktive Benutzerverwaltung"
                   programmname="control"
                   parameter="userpasswords2"/>
-        <Programm titel="Auflistung der Benutzer"
-                  programmname="ul.bat"
-                  pfad="./subs/"/>
-        <Programm titel="Detaillierte Nutzerinformationen"
-                  programmname="ui.bat"
-                  pfad="./subs/"/>
-        <Programm titel="Konto 'christian' Admin-Rechte geben"
-                  programmname="ua.bat"
-                  parameter="christian"
-                  pfad="./subs/"/>
-        <Programm titel="Konto 'christian' Admin-Rechte entziehen"
-                  programmname="ud.bat"
-                  parameter="christian"
-                  pfad="./subs/"/>
     </Untermenue>
     <Untermenue titel="Netzwerkkonfiguration">
-		<Programm titel="Zeigt die Computer in der Arbeitsgruppe an"
-				  programmname="us.bat"
-				  pfad="./subs/"/>
-		<Programm titel="Zeigt Netzwerkstatistiken an"
-				  programmname="ip.bat"
-				  pfad="./subs/"/>
 		<Programm titel="Freigabemanager"
 				  pfad="c:\windows\system32"
 				  programmname="rundll32.exe"
 				  parameter="ntlanui.dll,ShareManage"/>
-		<!--<Programm titel="Zeigt die freigegebenen Ordner an"
-				  programmname="ns.bat"
-				  pfad="./subs/"/>-->
-		<!--<Programm titel="Freigaben anzeigen"
-				  programmname="Fsmgmt.msc"/>-->
-		<!--<Programm titel="Richtet eine neue Freigabe ein"
-				  programmname="nf.bat"
-				  parameter="christian"
-				  pfad="./subs/"/>-->
+		<Programm titel="Freigaben anzeigen"
+				  programmname="Fsmgmt.msc"/>
 		<Programm titel="Freigabeassistent"
 				  programmname="shrpubw.exe"/>
-            <!--<Programm titel="Eine Freigabe entfernen"
-                      programmname="nd.bat"
-                      parameter="christian"
-                      pfad="./subs/"/>-->
-        <!--Untermenue titel="Serververwaltung">
-            <Programm titel="Den Apache-Server konfigurieren"
-                      programmname="Notepad++.exe"
-                      parameter="&quot;C:\programmierung\Apache Webserver\conf\httpd.conf&quot;"
-                      pfad="D:\Stick\PortableApps\Notepad++\"/>
-            <Programm titel="Den PHP-Interpreter konfigurieren"
-                      programmname="Notepad++.exe"
-                      parameter="C:\programmierung\PHP\php.ini"
-                      pfad="D:\Stick\PortableApps\Notepad++\"/>
-            <Programm titel="Den Apache-Server neustarten"
-                      programmname="httpd.exe"
-                      parameter="-w -n &quot;Apache2&quot; -k restart"
-                      pfad="C:\programmierung\Apache Webserver\bin\"/>
-            <Programm titel="Die Server starten"
-                      programmname="serverstart.bat"
-                      pfad="./subs/"/>
-            <Programm titel="Die Server neustarten"
-                      programmname="serverrestart.bat"
-                      pfad="./subs/"/>
-            <Programm titel="Die Server beenden"
-                      programmname="serverstop.bat"
-                      pfad="./subs/"/>
-        </Untermenue>
-        <Programm titel="Firefox starten"
-                  programmname="firefox.exe"
-                  pfad="C:\Programme\MOZILL~1\"
-                  unsichtbar="true" /-->
+		<Programm titel="Hosts editieren"
+				  programmname="NOTEPAD.EXE"
+				  pfad="C:\WINDOWS"
+                  parameter="C:\WINDOWS\system32\drivers\etc\hosts"  />
     </Untermenue>
 	<Untermenue titel="VPN">
 		<Programm titel="VPN zur KU aufbauen"
@@ -149,13 +94,11 @@ By default, the parser supports the following entities: &lt; &gt; &amp; &apos;
 		<Programm titel="VPN zur KU beenden"
 				  programmname="stopvpn.bat"
 				  pfad="./subs/"/>
-		<Programm titel="Hosts editieren"
-				  programmname="notepad++.exe"
-				  pfad="C:\EigeneProgramme\Notepad++"
-                  parameter="C:\WINDOWS\system32\drivers\etc\hosts" />
 		<Programm titel="OpenVPN starten"
 				  programmname="openvpn-gui.exe"
 				  pfad="C:\Programme\OpenVPN\bin"/>
 	</Untermenue>
 </Hauptmenue>
+<!--Texteditor pfad="C:\Programme\Notepad++\Notepad++.exe"/-->
+<Texteditor pfad="C:\Programme\Notepad++\Notepad++.exe"></Texteditor>
 <Benutzer name="Master"/>

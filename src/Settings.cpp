@@ -28,7 +28,7 @@ Settings::Settings(QString filename)
     try{
         parseSettings(xml);
     }catch(const std::exception& ex){
-        throw(FileIOError(QString("Failed to parse settings file ")+filename));
+        throw(FileIOError(QString("Failed to parse settings file '")+filename+"'. "+ex.what()));
     }
 }
 
@@ -69,9 +69,14 @@ Menulist* Settings::hauptmenue()
     return _hauptmenue;
 }
 
-const QString& Settings::user()
+const QString& Settings::user() const
 {
     return _user;
+}
+
+const QString& Settings::textEditor() const
+{
+    return _textEditor;
 }
 
 void Settings::parseSettings(const std::string& xml)
@@ -82,9 +87,15 @@ void Settings::parseSettings(const std::string& xml)
     {
         _hauptmenue = p.get_liste();
         _user = p.get_user();
+        _textEditor = p.get_textEditor();
+        cDEBUG("Texteditor: " << _textEditor.toLocal8Bit().constData());
+        if(_textEditor.isEmpty())
+            _textEditor = QString("C:\\WINDOWS\\NOTEPAD.EXE");
+        cDEBUG("Texteditor: " << _textEditor.toLocal8Bit().constData());
     }
     else
     {
+        cDEBUG("SettingsParser::parse() returned false");
         throw FileIOError("Error reading file.");
     }
 }

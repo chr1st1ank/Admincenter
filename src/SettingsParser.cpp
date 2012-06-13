@@ -12,7 +12,7 @@
 
 #include "debug.h"
 
-#define pDEBUG(s)
+#define pDEBUG(s) cDEBUG(s)
 
 bool SettingsParser::on_tag_open(std::string tag_name, XMLSP::StringMap& attributes)
 {
@@ -23,6 +23,19 @@ bool SettingsParser::on_tag_open(std::string tag_name, XMLSP::StringMap& attribu
                 i != attributes.end(); i++)
         {
             if (i->first == "name") _user = QString::fromLocal8Bit(i->second.c_str(),i->second.size());
+            break;
+        }
+    }
+    else if (tag_name == "Texteditor")
+    { //TODO: An error occurs if Texteditor is an empty tag! Why?
+        for (XMLSP::StringMap::const_iterator i = attributes.begin();
+                i != attributes.end(); i++)
+        {
+            pDEBUG("found attribute: " << i->first);
+            if (i->first == "pfad"){
+                pDEBUG("Saving contents: " << i->second);
+                _textEditor = QString::fromLocal8Bit(i->second.c_str(),i->second.size());
+            }
             break;
         }
     }
@@ -103,7 +116,8 @@ bool SettingsParser::on_tag_open(std::string tag_name, XMLSP::StringMap& attribu
 //    }
     else
     {
-        throw std::invalid_argument("Unbekannter tag "+tag_name);
+        pDEBUG("Going to throw std::invalid_argument");
+        throw std::invalid_argument("Unbekannter tag '"+tag_name+"'.");
     }
     return true;
 }
@@ -161,7 +175,7 @@ bool SettingsParser::on_document_begin()
 bool SettingsParser::on_document_end()
 {
     pDEBUG("on_document_end");
-    return !listenstack.empty();
+//    return !listenstack.empty();
     return true;
 }
 
@@ -184,5 +198,10 @@ Menulist* SettingsParser::get_liste()
 QString SettingsParser::get_user()
 {
     return _user;
+}
+
+QString SettingsParser::get_textEditor()
+{
+    return _textEditor;
 }
 

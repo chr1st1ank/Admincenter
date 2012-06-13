@@ -23,6 +23,7 @@ class MenuDialog : public QMainWindow//QDialog
         void quit();
 
     public slots:
+        void editConfig();
         void reload();
         void showInfo();
 

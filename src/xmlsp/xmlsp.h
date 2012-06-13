@@ -125,13 +125,13 @@ protected:
 	}
 
 	void report(int errnr, const char* str) {
-//		on_error(errnr, current_line, current_col, std::string(str));
+		on_error(errnr, current_line, current_col, std::string(str));
 		status_failure = true;
 	}
 
 	void report(int errnr, char* message) {
 		std::string s = message;
-//		on_error(errnr, current_line, current_col, s);
+		on_error(errnr, current_line, current_col, s);
 		status_failure = true;
 	}
 

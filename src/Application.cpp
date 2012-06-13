@@ -6,7 +6,6 @@
 
 #include "BaseException.hpp"
 #include "OperatingSystem.hpp"
-#include "Settings.hpp"
 #include "debug.h"
 
 #include <QDebug>
@@ -15,7 +14,7 @@
 
 Application* Application::_instance = 0;
 
-Application::Application(int argc, char* argv[]) : QApplication(argc, argv)
+Application::Application(int argc, char* argv[]) : QApplication(argc, argv), _settings(0)
 {
     // Loging in or starting main program?
     _loginMode = true;
@@ -40,6 +39,8 @@ Application::Application(int argc, char* argv[]) : QApplication(argc, argv)
 Application::~Application()
 {
     qDebug() << "Deleting Application";
+    if(_settings)
+        delete _settings;
 }
 
 Application* Application::instance()
@@ -55,10 +56,12 @@ int Application::run()
         if(_loginMode) // Start in login mode
         {
             // Read settings
-            Settings s(_configFilename);
+            if(_settings)
+                delete _settings;
+            _settings = new Settings(_configFilename);
 
             // Show the dialog
-            LoginDialog ad(s.user());
+            LoginDialog ad(_settings->user());
             ad.show();
             int returnCode = exec();
 
@@ -97,11 +100,13 @@ int Application::run()
 
             // Read settings
             cDEBUG(("Read settings from " + _configFilename).toLocal8Bit().constData());
-            Settings s(_configFilename);
+            if(_settings)
+                delete _settings;
+            _settings = new Settings(_configFilename);
 
             // Prepare and run the dialog
             cDEBUG("Update menu");
-            mp->setList(s.hauptmenue());
+            mp->setList(_settings->hauptmenue());
             cDEBUG("Show menu");
             mp->showDialog();
 
@@ -109,6 +114,7 @@ int Application::run()
         }
     }catch(const Settings::FileIOError& ex){
         cDEBUG(ex.what());
+        QMessageBox::warning(NULL, tr("Error"), ex.what());
         return -97;
     }
     return -99;
@@ -117,7 +123,20 @@ int Application::run()
 void Application::reloadConfiguration()
 {
     cDEBUG(("Read settings from " + _configFilename).toLocal8Bit().constData());
-    Settings s(_configFilename);
+    if(_settings)
+        delete _settings;
+    _settings = new Settings(_configFilename);
     cDEBUG("Update menu");
-    MenuPresenter::instance()->setList(s.hauptmenue());
+    MenuPresenter::instance()->setList(_settings->hauptmenue());
+}
+
+//TODO: What if _settings = 0?
+const Settings& Application::settings() const
+{
+    return *_settings;
+}
+
+QString Application::configFilename() const
+{
+    return _configFilename;
 }
