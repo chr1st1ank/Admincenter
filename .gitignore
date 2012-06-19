@@ -5,3 +5,8 @@ tmp/**/*
 /tmp
 /src/object_script.Admincenter_debug.Debug
 /src/object_script.Admincenter_debug.Release
+/src/object_script.Admincenter.Debug
+/src/object_script.Admincenter.Release
+/src/object_script.Admincenter_debug.Debug
+/src/object_script.Admincenter_debug.Release
+/src/AdminCenter.pro.user
