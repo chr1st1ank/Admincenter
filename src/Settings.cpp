@@ -35,8 +35,7 @@ Settings::Settings(QString filename)
 //void Settings::save(const QString& filename)
 //{
 //    // xml erzeugen
-//    std::string xml = \
-//                      "<?xml version=\"1.0\"?>\n"
+//    std::string xml = "<?xml version=\"1.0\"?>\n"
 //                      "<!-- \n"
 //                      "    Erlaubte Tags:\n"
 //                      "<Programm titel=\"Konsole\" programmname=\"cmd.exe\" parameter=\"\" pfad=\"\" unsichtbar=\"false\" />\n"

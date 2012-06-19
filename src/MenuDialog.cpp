@@ -20,7 +20,6 @@
 #include <QDebug>
 
 MenuDialog::MenuDialog()
-//    :   QDialog(0,  Qt::WindowFlags(Qt::Dialog | Qt::WindowMinimizeButtonHint)),
     :   QMainWindow(0,  Qt::WindowFlags(Qt::Dialog | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::WindowSystemMenuHint)),
         _buttons(),
         _shortcuts(),
@@ -114,6 +113,7 @@ void MenuDialog::setTitle(const QString& title)
         setWindowTitle("Admincenter");
     else
         setWindowTitle("Admincenter - " + title);
+    cON_DEBUG(setWindowTitle(QString("(Debug-Mode) ") + windowTitle()););
 }
 
 void MenuDialog::quit()

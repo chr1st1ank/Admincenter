@@ -130,7 +130,8 @@ QString OperatingSystem::get_appname()
 {
 #ifdef _WIN32
     WCHAR szAppPath[MAX_PATH] = L"";//TODO: ok so?
-    DWORD len = GetModuleFileNameW(0, szAppPath, MAX_PATH);
+    //DWORD len = GetModuleFileNameW(0, szAppPath, MAX_PATH);
+    GetModuleFileNameW(0, szAppPath, MAX_PATH);
 
     // Extract executable name
     QString appDirectory = QString::fromWCharArray(szAppPath);
@@ -148,7 +149,8 @@ QString OperatingSystem::get_appdir()
 {
 #ifdef _WIN32
     WCHAR szAppPath[MAX_PATH] = L"";//TODO: ok so?
-    DWORD len = GetModuleFileNameW(0, szAppPath, MAX_PATH);
+    //DWORD len = GetModuleFileNameW(0, szAppPath, MAX_PATH);
+    GetModuleFileNameW(0, szAppPath, MAX_PATH);
 
     // Extract executable name
     QString appDirectory = QString::fromWCharArray(szAppPath);
@@ -451,7 +453,7 @@ bool OperatingSystem::prozess_starten_als(const QString& Benutzername, const QSt
             errorText.append(" Path: \"" + QString::fromWCharArray(wWorkingPath) + "\"");
             errorText.append(" Kommandozeile: \"" + QString::fromWCharArray(wCommandLine) + "\"");
             cDEBUG(errorText.toLocal8Bit().constData());
-        )
+        );
         throw OSError(QObject::tr("Starting a process failed."), errormsg);
         returnvalue = false;
     }

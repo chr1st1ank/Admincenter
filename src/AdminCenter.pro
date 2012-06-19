@@ -11,55 +11,30 @@ win32{
 #LIBS += C:/MinGW/lib/gcc/mingw32/3.4.2/libgcc.a
 }unix{
 }
-UI_DIR += designer
+UI_DIR *= designer
 
 # General configuration
-CONFIG += qt
-CONFIG += static
+CONFIG *= qt
+CONFIG *= warn_on
+CONFIG *= debug_and_release
 
-debug {
-    #CONFIG += console
-	#CONFIG += warn_on
-	DESTDIR = ../debug
-	OBJECTS_DIR = ../tmp/debug
-	MOC_DIR = ../tmp/debug
-	DEFINES += DEBUG
-	message( "Debug mode!" )
-}else{
+
+ CONFIG(debug, debug|release)  {
+    DEFINES *= DEBUG
+    CONFIG *= console
+    DESTDIR = ../debug
+    OBJECTS_DIR = ../tmp/debug
+    MOC_DIR = ../tmp/debug
+}
+else {
     CONFIG -= console
-	DESTDIR = ../release
-	OBJECTS_DIR = ../tmp/release
-	MOC_DIR = ../tmp/release
-	message( "Release mode!" )
+    DESTDIR = ../release
+    OBJECTS_DIR = ../tmp/release
+    MOC_DIR = ../tmp/release
 }
 
-
-#CONFIG(release, release|debug) {
-#MODE = release
-#}
-#CONFIG(debug, release|debug) {
-#MODE = debug
-#TARGET = $$join(TARGET,,,_debug)
-#}
-#contains(MODE, debug) {
-#    #CONFIG += console
-#	#CONFIG += warn_on
-#	DESTDIR = ../debug
-#	OBJECTS_DIR = ../tmp/debug
-#	MOC_DIR = ../tmp/debug
-#	DEFINES += DEBUG
-#	message( "Debug mode!" )
-#}
-#contains(MODE, release) {
-#    CONFIG -= console
-#	DESTDIR = ../release
-#	OBJECTS_DIR = ../tmp/release
-#	MOC_DIR = ../tmp/release
-#	message( "Release mode!" )
-#}
-
 # Input
-HEADERS += Application.hpp LoginDialog.hpp MenuDialog.hpp InfoDialog.hpp EntrySubmenu.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h
+HEADERS += Application.hpp LoginDialog.hpp MenuDialog.hpp InfoDialog.hpp EntrySubmenu.hpp MenuPresenter.hpp MenuButton.hpp BackButton.hpp EmptyButton.hpp auxiliaries.hpp BaseException.hpp EntryApplication.hpp Entry.hpp Menulist.hpp OperatingSystem.hpp Settings.hpp SettingsParser.hpp xmlsp/xmlsp.h version.h debug.h
 FORMS += designer/LoginDialog.ui
 SOURCES += Application.cpp LoginDialog.cpp main.cpp MenuDialog.cpp InfoDialog.cpp EntrySubmenu.cpp MenuPresenter.cpp MenuButton.cpp BackButton.cpp EmptyButton.cpp auxiliaries.cpp EntryApplication.cpp Menulist.cpp OperatingSystem.cpp Settings.cpp SettingsParser.cpp xmlsp/xmlsp.cpp
 RC_FILE = appicon.rc

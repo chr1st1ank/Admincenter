@@ -7,12 +7,12 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<MakeCommands>
-			<Build command="$make -f $makefile $target" />
+			<Build command="$make -f $makefile.$target" />
 			<CompileFile command="$make -f $makefile $file" />
 			<Clean command="$make -f $makefile.$target clean" />
 			<DistClean command="$make -f $makefile distclean$target" />
 			<AskRebuildNeeded command="$make -q -f $makefile $target" />
-			<SilentBuild command="$make -s -f $makefile $target" />
+			<SilentBuild command="$make -f $makefile.$target &gt; $(CMD_NULL)" />
 		</MakeCommands>
 		<Build>
 			<Target title="Debug">
@@ -29,12 +29,12 @@
 					<Add library="..\sharedLib\debug\libsharedLib.a" />
 				</Linker>
 				<MakeCommands>
-					<Build command="$make -f $makefile" />
-					<CompileFile command="$make -f $makefile $file" />
-					<Clean command="$make -f $makefile.$target clean" />
+					<Build command="$make -f $makefile.debug" />
+					<CompileFile command="$make -f $makefile.debug $file" />
+					<Clean command="$make -f $makefile.debug-clean" />
 					<DistClean command="$make -f $makefile distclean$target" />
-					<AskRebuildNeeded command="$make -q -f $makefile" />
-					<SilentBuild command="$make -s -f $makefile" />
+					<AskRebuildNeeded command="$make -q -f $makefile.debug" />
+					<SilentBuild command="$make -f $makefile.debug &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="Release">
@@ -52,12 +52,12 @@
 					<Add library="..\sharedLib\release\libsharedLib.a" />
 				</Linker>
 				<MakeCommands>
-					<Build command="$make -f $makefile.$target" />
-					<CompileFile command="$make -f $makefile $file" />
-					<Clean command="$make -f $makefile.$target clean" />
+					<Build command="$make -f $makefile.release" />
+					<CompileFile command="$make -f $makefile.releaset $file" />
+					<Clean command="$make -f $makefile.release-clean" />
 					<DistClean command="$make -f $makefile distclean$target" />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -s -f $makefile $target" />
+					<AskRebuildNeeded command="$make -q -f $makefile.release" />
+					<SilentBuild command="$make -f $makefile.release &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 		</Build>
@@ -72,6 +72,9 @@
 			<Add library="QtGui4" />
 			<Add directory="$(#qt4.lib)" />
 		</Linker>
+		<ExtraCommands>
+			<Add before="$(#qt4)/bin/qmake -o makefile $PROJECT_NAME.pro" />
+		</ExtraCommands>
 		<Unit filename="AdminCenter.pro" />
 		<Unit filename="Application.cpp" />
 		<Unit filename="Application.hpp" />
@@ -116,7 +119,7 @@
 			<envvars />
 			<AutoVersioning>
 				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
-				<Settings autoincrement="1" date_declarations="1" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Settings autoincrement="1" date_declarations="1" update_manifest="2" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
 				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
 				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
 			</AutoVersioning>

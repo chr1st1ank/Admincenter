@@ -16,6 +16,7 @@ LoginDialog::LoginDialog(const QString& defaultUser, QWidget* parent) : QDialog(
     setupUi(this);
 
     setWindowIcon(QIcon("icons/admincenter.png"));
+    cON_DEBUG(setWindowTitle(QString("(Debug-Mode) ") + windowTitle()););
 
     // Setup the button icons
     QPushButton* pb = buttonBox->button(QDialogButtonBox::Ok);
